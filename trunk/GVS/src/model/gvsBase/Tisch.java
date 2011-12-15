@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Tisch {
 	
 	int Tischnummer;
-	Kellner Kellner;
+	User Kellner;
 	ArrayList<Bestellung> Bestellungen =  new ArrayList<Bestellung>();
 	
 	/**
@@ -21,7 +21,7 @@ public class Tisch {
 	 * @param Tischnummer
 	 * @param Kellner
 	 */
-	public Tisch(int Tischnummer, Kellner Kellner) {
+	public Tisch(int Tischnummer, User Kellner) {
 		this.Tischnummer = Tischnummer;
 		this.Kellner = Kellner;
 	}
@@ -29,7 +29,7 @@ public class Tisch {
 	
 	/**
 	 * Wenn Bene die Kommunikation startet dann kann er einen Tisch anfragen ohne damit die Kellner zu kennen.
-	 * Damit weiß ich welche Daten ich bekomme
+	 * Damit weiÃŸ ich welche Daten ich bekomme
 	 * 
 	 * @param Tischnummer
 	 */
@@ -42,7 +42,7 @@ public class Tisch {
 		Bestellungen = bestellungen;
 	}
 	
-	public void setKellner(Kellner kellner) {
+	public void setKellner(User kellner) {
 		Kellner = kellner;
 	}
 	
@@ -53,7 +53,7 @@ public class Tisch {
 	/**
 	 * addBestellung
 	 * 
-	 * Fügt eine Bestellung einem Tisch hinzu
+	 * Fï¿½gt eine Bestellung einem Tisch hinzu
 	 * 
 	 * @param b
 	 */

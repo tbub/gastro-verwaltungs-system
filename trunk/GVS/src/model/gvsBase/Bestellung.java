@@ -30,10 +30,10 @@ public class Bestellung {
 	/**
 	 * addProduct()
 	 * 
-	 * fügt ein Produkt der Liste an Produkten, die zu einer Bestellung gehören, hinzu
+	 * fÃ¼gt ein Produkt der Liste an Produkten, die zu einer Bestellung gehÃ¶ren, hinzu
 	 * 
 	 * @author Sebbo
-	 * @param p	Produktobjekt das hinzugefügt wird
+	 * @param p	Produktobjekt das hinzugefÃ¼gt wird
 	 */
 	public void addProdukt(Produkt p) {
 		Produkte.add(p);
@@ -43,13 +43,13 @@ public class Bestellung {
 	/**
 	 * removeProduct()
 	 * 
-	 * löscht ein Produkt aus der Liste der zugehörigen Produkte.
-	 * Dafür wird die Liste von hinten durchsucht und das erste Produkt
-	 * das dem selben entspricht, wird gelöscht, da es wahrscheinlich
+	 * lÃ¶scht ein Produkt aus der Liste der zugehÃ¶rigen Produkte.
+	 * DafÃ¼r wird die Liste von hinten durchsucht und das erste Produkt
+	 * das dem selben entspricht, wird gelÃ¶scht, da es wahrscheinlich
 	 * das aktuellste ist
 	 * 
 	 * @author Sebbo
-	 * @param p	Produktobjekt das gelöscht wird wird
+	 * @param p	Produktobjekt das gelÃ¶scht wird wird
 	 */
 	public void deleteProdukt(Produkt p) {
 		for ( int i = Produkte.size()-1; i >= 0 ; i--) {

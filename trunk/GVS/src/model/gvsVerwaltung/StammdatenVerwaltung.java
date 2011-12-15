@@ -3,14 +3,14 @@ import java.util.ArrayList;
 import model.gvsBase.*;
 
 /**
- * Verantwortlich für das Laden von
+ * Verantwortlich fï¿½r das Laden von
  * - Liste an Tische (enthalten ihre Bestellungen selbst als Liste
  * - Liste an Kellnern
  * - Liste an geschlossenen Bestellungen
  * - Liste an offenen Bestellungen
  * 
  * 
- * fragt alle Datenelemente aus der Datenschnittstelle an und speichert sie temporär im System
+ * fragt alle Datenelemente aus der Datenschnittstelle an und speichert sie temporï¿½r im System
  * 
  * @author Sebastian
  * 
@@ -20,14 +20,14 @@ import model.gvsBase.*;
 public class StammdatenVerwaltung {
 
 	ArrayList<Produkt> ProdukteListe;
-	ArrayList<Kellner> KellnerListe;
+	ArrayList<User> KellnerListe;
 	ArrayList<Tisch> TischeListe;
 	ArrayList<Bestellung> offeneBestellungen;
 	
 	public StammdatenVerwaltung() {
 		ProdukteListe = new ArrayList<Produkt>();
 		TischeListe = new ArrayList<Tisch>();
-		KellnerListe = new ArrayList<Kellner>();
+		KellnerListe = new ArrayList<User>();
 		LoadKellner();
 		LoadProdukte();
 		LoadTische();
@@ -43,10 +43,10 @@ public class StammdatenVerwaltung {
 	}
 	
 	public void LoadKellner() {
-		KellnerListe.add(new Kellner("Basti"));
-		KellnerListe.add(new Kellner("Bene"));
-		KellnerListe.add(new Kellner("Benni"));
-		KellnerListe.add(new Kellner("Sebastian"));
+		KellnerListe.add(new User("Basti"));
+		KellnerListe.add(new User("Bene"));
+		KellnerListe.add(new User("Benni"));
+		KellnerListe.add(new User("Sebastian"));
 	}
 	
 	public void LoadTische() {
@@ -64,7 +64,7 @@ public class StammdatenVerwaltung {
 		return TischeListe;
 	}
 	
-	public ArrayList<Kellner> getKellnerListe() {
+	public ArrayList<User> getKellnerListe() {
 		return KellnerListe;
 	}
 	

@@ -1,9 +1,9 @@
 package model.gvsUC;
 
-/** Verantwortlich für die Use Cases
+/** Verantwortlich fï¿½r die Use Cases
  * - Bestellung Anlegen
  * - Bestellung Erweitern
- * - Bestellung Schließen
+ * - Bestellung Schlieï¿½en
 **/
 
 
@@ -34,13 +34,13 @@ public class BestellungManager {
 	}
 	
 	/**
-	 * UC Bestellung Schließen
+	 * UC Bestellung Schlieï¿½en
 	 * 
-	 * Abschließen einer bereits angelegten Bestellung eines Tisches
+	 * Abschlieï¿½en einer bereits angelegten Bestellung eines Tisches
 	 * 
 	 * @return ??
 	 */
-	void BestellungSchließen() {
+	void BestellungSchlieÃŸen() {
 
 	}
 }
