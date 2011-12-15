@@ -11,12 +11,16 @@ import java.util.ArrayList;
 public class Order {
 
 	ArrayList<Product> Products;
+	boolean isClosed;
+	int OrderID;
+	
 	
 	/**
 	 * Konstruktor
 	 */
 	public Order() {
 		 Products =  new ArrayList<Product>();
+		 isClosed = false;
 	}
 	
 	public ArrayList<Product> getProducts() {
@@ -26,11 +30,33 @@ public class Order {
 	public void setProducts(ArrayList<Product> p) {
 		Products = p;
 	}
+	
+	public boolean isClosed() {
+		return isClosed;
+	}
+	
+	/**
+	 * close
+	 * 
+	 * @author Sebastian
+	 */
+	public void close() {
+		isClosed = true;
+	}
+	
+	/**
+	 * open
+	 * 
+	 * @author Sebastian
+	 */
+	public void open() {
+		isClosed = false;
+	}
 		
 	/**
 	 * addProduct()
 	 * 
-	 * f�gt ein Produkt der Liste an Productsn, die zu einer Bestellung geh�ren, hinzu
+	 * f�gt ein Produkt der Liste an Productsn, die zu einer Bestellung gehoeren, hinzu
 	 * 
 	 * @author Sebastian
 	 * @param p	Produktobjekt das hinzugef�gt wird
@@ -43,13 +69,13 @@ public class Order {
 	/**
 	 * removeProduct()
 	 * 
-	 * l�scht ein Produkt aus der Liste der zugeh�rigen Products.
-	 * Daf�r wird die Liste von hinten durchsucht und das erste Produkt
-	 * das dem selben entspricht, wird gel�scht, da es wahrscheinlich
+	 * loescht ein Produkt aus der Liste der zugeh�rigen Products.
+	 * Dafuer wird die Liste von hinten durchsucht und das erste Produkt
+	 * das dem selben entspricht, wird geloescht, da es wahrscheinlich
 	 * das aktuellste ist
 	 * 
 	 * @author Sebastian
-	 * @param p	Produktobjekt das gel�scht wird wird
+	 * @param p	Produktobjekt das geloescht wird wird
 	 */
 	public void deleteProdukt(Product p) {
 		for ( int i = Products.size()-1; i >= 0 ; i--) {
