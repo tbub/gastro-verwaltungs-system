@@ -1,6 +1,6 @@
 package model;
 
-import model.gvsBase.Bestellung;
+import model.gvsBase.Order;
 
 /**
  * 
@@ -10,6 +10,7 @@ import model.gvsBase.Bestellung;
 public interface IOrderUC
 {
 	public void addProduct(int orderID, int productID);
-	public Bestellung getOrder(int orderID);
+	public Order getOrder(int orderID);
 	public void closeOrder(int orderID);
+	public boolean isOrderClosed(int orderID);
 }

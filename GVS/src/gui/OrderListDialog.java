@@ -1,11 +1,12 @@
-package protptype;
+package gui;
+
+import javax.swing.JFrame;
 import gui.GraphicFactory;
 import gui.Table;
 import gui.TableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -19,15 +20,24 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 
-public class OrderList extends JFrame
+public class OrderListDialog extends AbstractDialog
 {
+	private IOrderListController controller;
 	private JTable table;
-
-	public OrderList()
+	private Object[][] data;
+	private IGraphicFactory graphicalFactory = GraphicFactory.getInstance();
+	
+	public OrderListDialog(IOrderListController controller)
+	{
+		this.controller = controller;
+	}
+	
+	@Override
+	protected void initComponents()
 	{
 		setTitle("Bestellungen");
-		getContentPane().setLayout(
-				new FormLayout(new ColumnSpec[] {
+		getContentPane().setLayout(new FormLayout(
+			new ColumnSpec[] {
 				ColumnSpec.decode("left:6dlu"),
 				ColumnSpec.decode("left:pref"),
 				ColumnSpec.decode("left:3dlu"),
@@ -76,16 +86,16 @@ public class OrderList extends JFrame
 		
 		Object[][] data =
 		{
-				{ "1", "Schnitzel, Wei�wurst, Wein", "24,50 �", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "2", "Pommes, Salat", "7,50 �", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "3", "Schweinebraten, Cola, Nudeln, Fisch", "40 �", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "7", "Nudeln", "9,50 �", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "9", "Fisch", "11,50 �", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "15", "Eis", "2,50 �", "", GraphicFactory.getInstance().createTableButton("closed")},
-				{ "17", "Bier", "3,50 �", "", GraphicFactory.getInstance().createTableButton("closed")},
+				{ "1", "Schnitzel, Weißwurst, Wein", "24,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "2", "Pommes, Salat", "7,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "3", "Schweinebraten, Cola, Nudeln, Fisch", "40 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "7", "Nudeln", "9,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "9", "Fisch", "11,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "15", "Eis", "2,50 €", "", GraphicFactory.getInstance().createTableButton("closed")},
+				{ "17", "Bier", "3,50 €", "", GraphicFactory.getInstance().createTableButton("closed")},
 				{ "", "", "", "", GraphicFactory.getInstance().createTableButton("add")}
 		};
-		String[] cnames  = { "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schlie�en" };
+		String[] cnames  = { "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schließen" };
 		
 		table = new Table(new TableModel(cnames,data));
 		table.setVisible(true);
@@ -95,10 +105,36 @@ public class OrderList extends JFrame
 		table.setRowHeight(25);
 		getContentPane().add(new JScrollPane(table), "2, 6, 7, 1, fill, fill");
 		setMinimumSize(new Dimension(400, 550));
+		
 	}
 	
-	public static void main(String[] args)
+	private void updateModel()
 	{
-		new OrderList().setVisible(true);
+		if(controller.isTableSelected())
+		{
+			String[][] data = controller.getOrders(controller.getSelectedTable());
+			Object[][] tableData = new Object[data.length][data[0].length+2];		// add buttons!
+			for(int row = 0; row < tableData.length; row++)
+			{
+				for(int col = 0; col < tableData[0].length; col++)
+				{
+					if(col < data[0].length)
+					{
+						tableData[row][col] = data[row][col];
+					}
+					if(controller.isOrderClosed(OrderID))
+					if(col == tableData[0].length-2)
+					{
+						tableData[row][col] = graphicalFactory.createTableButton("edit");
+					}
+					else if(col == tableData[0].length-1)
+					{
+						tableData[row][col] = graphicalFactory.createTableButton("close");
+					}
+				}
+			}
+		}
 	}
+	
+	
 }

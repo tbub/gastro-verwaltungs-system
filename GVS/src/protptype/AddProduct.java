@@ -1,5 +1,5 @@
 package protptype;
-import gui.GVSGraphicFactory;
+import gui.GraphicFactory;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -25,7 +25,7 @@ public class AddProduct extends JDialog
 		comboBox.setBounds(98, 66, 162, 27);
 		getContentPane().add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox(new String[]{"Gericht", "GetrŠnk"});
+		JComboBox comboBox_1 = new JComboBox(new String[]{"Gericht", "Getrï¿½nk"});
 		comboBox_1.setBounds(98, 33, 162, 27);
 		getContentPane().add(comboBox_1);
 		
@@ -37,7 +37,7 @@ public class AddProduct extends JDialog
 		label.setBounds(98, 104, 61, 16);
 		getContentPane().add(label);
 		
-		JButton btnHinzufgen = GVSGraphicFactory.createImageButton("save", true);
+		JButton btnHinzufgen = GraphicFactory.getInstance().createImageButton("save", true);
 		btnHinzufgen.setBounds(185, 102, 117, 29);
 		getContentPane().add(btnHinzufgen);
 	}

@@ -12,4 +12,5 @@ public interface IUserUC
 	public boolean isManager(String username);
 	public List<User> getUsers();
 	public User getCurrentUser();
+	public boolean isCurrentUser(String username);
 }
