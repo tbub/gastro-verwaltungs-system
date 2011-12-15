@@ -1,7 +1,7 @@
 package protptype;
-import gui.GVSGraphicFactory;
-import gui.GVSTable;
-import gui.GVSTableModel;
+import gui.GraphicFactory;
+import gui.Table;
+import gui.TableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -60,21 +60,21 @@ public class ProductList_editDesk extends JFrame
 		
 		Object[][] data =
 		{
-				{ "1", "Schnitzel", "10,50 Û", GVSGraphicFactory.createImageButton("eat", false)},
-				{ "2", "Wei§wurst", "8,50 Û", GVSGraphicFactory.createImageButton("eat", false)},
-				{ "3", "Wein", "13,50 Û", GVSGraphicFactory.createImageButton("drink", false)},
-				{ "4", "Salat", "3,50 Û", GVSGraphicFactory.createImageButton("eat", false)},
-				{ "5", "Pommes", "7,50 Û", GVSGraphicFactory.createImageButton("drink", false)},
-				{ "3", "Schweinebraten", "11,32 Û", GVSGraphicFactory.createImageButton("eat", false)},
-				{ "", "", "", GVSGraphicFactory.createTableButton("add")}
+				{ "1", "Schnitzel", "10,50 ï¿½", GraphicFactory.getInstance().createImageButton("eat", false)},
+				{ "2", "Weiï¿½wurst", "8,50 ï¿½", GraphicFactory.getInstance().createImageButton("eat", false)},
+				{ "3", "Wein", "13,50 ï¿½", GraphicFactory.getInstance().createImageButton("drink", false)},
+				{ "4", "Salat", "3,50 ï¿½", GraphicFactory.getInstance().createImageButton("eat", false)},
+				{ "5", "Pommes", "7,50 ï¿½", GraphicFactory.getInstance().createImageButton("drink", false)},
+				{ "3", "Schweinebraten", "11,32 ï¿½", GraphicFactory.getInstance().createImageButton("eat", false)},
+				{ "", "", "", GraphicFactory.getInstance().createTableButton("add")}
 		};
 		String[] cnames  = { "#", "Produkt", "Einzelpreis", "Typ" };
 		
-		table = new GVSTable(new GVSTableModel(cnames,data));
+		table = new Table(new TableModel(cnames,data));
 		table.setRowMargin(5);
 		table.setVisible(true);
 		
-				JButton btnEdit = GVSGraphicFactory.createImageButton("save", false);
+				JButton btnEdit = GraphicFactory.getInstance().createImageButton("save", false);
 				getContentPane().add(btnEdit, "6, 2");
 		//table.setFillsViewportHeight(true);
 		table.setGridColor(Color.BLACK);

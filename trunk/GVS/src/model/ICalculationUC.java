@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-import model.gvsBase.Bestellung;
+import model.gvsBase.Order;
 
 /**
  * 
@@ -11,5 +11,5 @@ import model.gvsBase.Bestellung;
  */
 public interface ICalculationUC
 {
-	public List<Bestellung> calculate(String startDate, String endDate);
+	public List<Order> calculate(String startDate, String endDate);
 }

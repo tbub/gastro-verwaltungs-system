@@ -1,7 +1,7 @@
 package protptype;
-import gui.GVSGraphicFactory;
-import gui.GVSTable;
-import gui.GVSTableModel;
+import gui.GraphicFactory;
+import gui.Table;
+import gui.TableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -52,10 +52,10 @@ public class OrderList_editBartender extends JFrame
 		JComboBox comboBox = new JComboBox(new String[]{"Tisch 1", "Tisch 2"});
 		getContentPane().add(comboBox, "4, 2, fill, default");
 		
-		JButton logout = GVSGraphicFactory.createImageButton("logout", true);
+		JButton logout = GraphicFactory.getInstance().createImageButton("logout", true);
 		getContentPane().add(logout, "8, 2, right, default");
 		
-		getContentPane().add(GVSGraphicFactory.createImageButton("calculation", true), "6, 2");
+		getContentPane().add(GraphicFactory.getInstance().createImageButton("calculation", true), "6, 2");
 
 		JLabel lblKellner = new JLabel("Kellner:");
 		getContentPane().add(lblKellner, "2, 4");
@@ -63,7 +63,7 @@ public class OrderList_editBartender extends JFrame
 		JComboBox comboBox_1 = new JComboBox(new String[]{"Kellnername 1", "Kellnername 2", "Kellnername 3", "Kellnername 4"});
 		getContentPane().add(comboBox_1, "4, 4, fill, default");
 
-		JButton btnEdit = GVSGraphicFactory.createImageButton("save", true);
+		JButton btnEdit = GraphicFactory.getInstance().createImageButton("save", true);
 		getContentPane().add(btnEdit, "6, 4");
 		Icon icon = new ImageIcon("icons/edit.png");
 		JButton test = new JButton();
@@ -76,18 +76,18 @@ public class OrderList_editBartender extends JFrame
 		
 		Object[][] data =
 		{
-				{ "1", "Schnitzel, Wei§wurst, Wein", "24,50 Û", GVSGraphicFactory.createTableButton("edit"), GVSGraphicFactory.createTableButton("close")},
-				{ "2", "Pommes, Salat", "7,50 Û", GVSGraphicFactory.createTableButton("edit"), GVSGraphicFactory.createTableButton("close")},
-				{ "3", "Schweinebraten, Cola, Nudeln, Fisch", "40 Û", GVSGraphicFactory.createTableButton("edit"), GVSGraphicFactory.createTableButton("close")},
-				{ "7", "Nudeln", "9,50 Û", GVSGraphicFactory.createTableButton("edit"), GVSGraphicFactory.createTableButton("close")},
-				{ "9", "Fisch", "11,50 Û", GVSGraphicFactory.createTableButton("edit"), GVSGraphicFactory.createTableButton("close")},
-				{ "15", "Eis", "2,50 Û", "", GVSGraphicFactory.createTableButton("closed")},
-				{ "17", "Bier", "3,50 Û", "", GVSGraphicFactory.createTableButton("closed")},
-				{ "", "", "", "", GVSGraphicFactory.createTableButton("add")}
+				{ "1", "Schnitzel, Weiï¿½wurst, Wein", "24,50 ï¿½", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "2", "Pommes, Salat", "7,50 ï¿½", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "3", "Schweinebraten, Cola, Nudeln, Fisch", "40 ï¿½", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "7", "Nudeln", "9,50 ï¿½", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "9", "Fisch", "11,50 ï¿½", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
+				{ "15", "Eis", "2,50 ï¿½", "", GraphicFactory.getInstance().createTableButton("closed")},
+				{ "17", "Bier", "3,50 ï¿½", "", GraphicFactory.getInstance().createTableButton("closed")},
+				{ "", "", "", "", GraphicFactory.getInstance().createTableButton("add")}
 		};
-		String[] cnames  = { "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schlie§en" };
+		String[] cnames  = { "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schlieï¿½en" };
 		
-		table = new GVSTable(new GVSTableModel(cnames,data));
+		table = new Table(new TableModel(cnames,data));
 		table.setVisible(true);
 		//table.setFillsViewportHeight(true);
 		table.setGridColor(Color.BLACK);

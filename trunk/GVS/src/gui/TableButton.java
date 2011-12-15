@@ -3,13 +3,13 @@ package gui;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
-public class GVSTableButton extends JButton
+public class TableButton extends JButton
 {
 	private boolean rollover = false;
 	private Icon rolloverIcon;
 	private Icon icon;
 
-	public GVSTableButton(Icon icon, Icon rolloverIcon)
+	public TableButton(Icon icon, Icon rolloverIcon)
 	{
 		this.rolloverIcon = rolloverIcon;
 		this.icon = icon;

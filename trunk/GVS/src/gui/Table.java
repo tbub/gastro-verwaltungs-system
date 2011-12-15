@@ -13,10 +13,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
-public class GVSTable extends JTable implements MouseListener, MouseMotionListener
+public class Table extends JTable implements MouseListener, MouseMotionListener
 {
-	private GVSTableButton rolloverButton = null;
-	public GVSTable(TableModel model)
+	private TableButton rolloverButton = null;
+	public Table(TableModel model)
 	{
 		super(model);
 		addMouseListener(this);
@@ -90,8 +90,8 @@ public class GVSTable extends JTable implements MouseListener, MouseMotionListen
 	    		rolloverButton.setRollover(false);
 	    	}
 		    
-		    if (value instanceof GVSTableButton) {
-		    	GVSTableButton button = (GVSTableButton)value;
+		    if (value instanceof TableButton) {
+		    	TableButton button = (TableButton)value;
 		    	button.setRollover(true);
 				rolloverButton = button;
 		    }

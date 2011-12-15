@@ -2,13 +2,13 @@ package gui;
 
 import javax.swing.table.AbstractTableModel;
 
-public class GVSTableModel extends AbstractTableModel
+public class TableModel extends AbstractTableModel
 {
 	private final String[] COLUMN_NAMES;
 	private final Class<?>[] COLUMN_TYPES;
 	private Object[][] data;
 	
-	public GVSTableModel(String[] columnNames, Object[][] data)
+	public TableModel(String[] columnNames, Object[][] data)
 	{
 		this.data = data;
 		COLUMN_NAMES = columnNames;

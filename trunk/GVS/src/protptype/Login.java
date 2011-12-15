@@ -1,5 +1,5 @@
 package protptype;
-import gui.GVSGraphicFactory;
+import gui.GraphicFactory;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +33,7 @@ public class Login extends JFrame
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JButton btnAnmelden = GVSGraphicFactory.createImageButton("login", true);
+		JButton btnAnmelden = GraphicFactory.getInstance().createImageButton("login", true);
 		btnAnmelden.setBounds(235, 99, 117, 29);
 		getContentPane().add(btnAnmelden);
 	}
