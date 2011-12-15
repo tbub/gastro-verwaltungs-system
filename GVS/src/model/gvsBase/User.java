@@ -8,11 +8,11 @@ package model.gvsBase;
  *
  */
 
-public class Kellner {
+public class User {
 
 	String Name;
 	
-	public Kellner(String Name) {
+	public User(String Name) {
 		this.Name = Name;
 	}
 	
