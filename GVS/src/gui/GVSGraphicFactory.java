@@ -71,4 +71,6 @@ public class GVSGraphicFactory
 	{
 		return createImageButton(name, STANDARD_IMAGE_DATA_TYPE, rollover);
 	}
+	
+	public void test(){};
 }
