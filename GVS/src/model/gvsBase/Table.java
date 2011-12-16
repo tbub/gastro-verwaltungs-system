@@ -101,5 +101,11 @@ public class Table {
 		}
 		return output;
 	}
+
+
+	public int getId()
+	{
+		return id;
+	}
 	
 }

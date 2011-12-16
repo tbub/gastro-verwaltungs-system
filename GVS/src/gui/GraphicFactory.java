@@ -82,32 +82,32 @@ public class GraphicFactory implements IGraphicFactory
 		return createImageButton(name, STANDARD_IMAGE_DATA_TYPE, rollover);
 	}
 	
-	public JLabel createLabel(String name)
+	public JLabel createLabel(String key)
 	{
-		return new JLabel(name);
+		return new JLabel(getProperty(key));
 	}
 	
-	public int showErrorDialog(String message)
+	public int showErrorDialog(String key)
 	{
 		ImageIcon icon = new ImageIcon("icons/error_icon.png");
-		return JOptionPane.showConfirmDialog(null, message, "Fehler", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, icon);
+		return JOptionPane.showConfirmDialog(null, getProperty(key), "Fehler", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, icon);
 	}
 	
-	public int showQuestionDialog(String message, String title)
+	public int showQuestionDialog(String key, String title)
 	{
 		ImageIcon icon = new ImageIcon("icons/question_icon.png");
-		return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
+		return JOptionPane.showConfirmDialog(null, getProperty(key), title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
 	}
 	
-	public int showWarningDialog(String message)
+	public int showWarningDialog(String key)
 	{
 		ImageIcon icon = new ImageIcon("icons/warning_icon.png");
-		return JOptionPane.showConfirmDialog(null, message, "Warnung",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, icon);
+		return JOptionPane.showConfirmDialog(null, getProperty(key), "Warnung",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, icon);
 	}
 	
 	public String getProperty(String key)
 	{
 		return prop.getProperty(key);
-	}
+	} 
 
 }
