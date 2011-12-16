@@ -1,5 +1,6 @@
 package model.gvsBase;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basiselement einer Bestellung
@@ -10,25 +11,25 @@ import java.util.ArrayList;
 
 public class Order {
 
-	ArrayList<Product> Products;
-	boolean isClosed;
-	int OrderID;
+	private List<Product> products;
+	private boolean isClosed;
+	private int orderID;
 	
 	
 	/**
 	 * Konstruktor
 	 */
 	public Order() {
-		 Products =  new ArrayList<Product>();
+		products =  new ArrayList<Product>();
 		 isClosed = false;
 	}
 	
-	public ArrayList<Product> getProducts() {
-		return Products;
+	public List<Product> getProducts() {
+		return products;
 	}
 	
 	public void setProducts(ArrayList<Product> p) {
-		Products = p;
+		products = p;
 	}
 	
 	public boolean isClosed() {
@@ -56,20 +57,20 @@ public class Order {
 	/**
 	 * addProduct()
 	 * 
-	 * f�gt ein Produkt der Liste an Productsn, die zu einer Bestellung gehoeren, hinzu
+	 * fügt ein Produkt der Liste an Productsn, die zu einer Bestellung gehoeren, hinzu
 	 * 
 	 * @author Sebastian
-	 * @param p	Produktobjekt das hinzugef�gt wird
+	 * @param p	Produktobjekt das hinzugefügt wird
 	 */
 	public void addProdukt(Product p) {
-		Products.add(p);
+		products.add(p);
 	}
 	
 	
 	/**
 	 * removeProduct()
 	 * 
-	 * loescht ein Produkt aus der Liste der zugeh�rigen Products.
+	 * loescht ein Produkt aus der Liste der zugehörigen Products.
 	 * Dafuer wird die Liste von hinten durchsucht und das erste Produkt
 	 * das dem selben entspricht, wird geloescht, da es wahrscheinlich
 	 * das aktuellste ist
@@ -78,10 +79,9 @@ public class Order {
 	 * @param p	Produktobjekt das geloescht wird wird
 	 */
 	public void deleteProdukt(Product p) {
-		for ( int i = Products.size()-1; i >= 0 ; i--) {
-			if(Products.get(i).equals(p)) {
-				Products.remove(i);
-				Products.trimToSize();
+		for ( int i = products.size()-1; i >= 0 ; i--) {
+			if(products.get(i).equals(p)) {
+				products.remove(i);
 				break;
 			}
 		}
@@ -103,21 +103,30 @@ public class Order {
 	 * @author Sebastian
 	 * @param o
 	 */
-	private boolean equals(Order o) {
-		int EqualCounter = 0;
+	public boolean equals(Order o) {
+		int equalCounter = 0;
 		if(o instanceof Order) {
 			if(o.getClass() == this.getClass()) {
 				for(Product p : o.getProducts()) {
 					for(Product p1 : this.getProducts()) {
 						if(p1 == p) {
-							EqualCounter++;
+							equalCounter++;
 						}
 					}
 				}
 			}
 		}
-		if(EqualCounter == this.getProducts().size()) { return true; }
+		if(equalCounter == this.getProducts().size()) { return true; }
 		else { return false; }
+	}
+	
+	/**
+	 * @author Benedikt
+	 * @return orderID die Bestellungsnummer (eindeutige nummer)
+	 */
+	public int getId()
+	{
+		return orderID;
 	}
 	
 	/**
@@ -125,7 +134,7 @@ public class Order {
 	 */
 	public String toString() {
 		String output = "";
-		for (Product p: Products) {
+		for (Product p: products) {
 			output = output
 			.concat(p.toString())
 			.concat(System.getProperty("line.separator"));

@@ -1,16 +1,21 @@
 package gui;
 
-import javax.swing.JFrame;
 import gui.GraphicFactory;
 import gui.Table;
 import gui.TableModel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import dto.OrderDTO;
+import dto.TableDTO;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,11 +30,20 @@ public class OrderListDialog extends AbstractDialog
 	private IOrderListController controller;
 	private JTable table;
 	private Object[][] data;
+	private String[]  cnames;
 	private IGraphicFactory graphicalFactory = GraphicFactory.getInstance();
+	private static final int COL_COUNT = 5;
+	
+	private static final int COL_ID = 0;
+	private static final int COL_PRODUCTS = 1;
+	private static final int COL_PRICE = 2;
+	private static final int COL_BUTTON_EDIT = 3;
+	private static final int COL_BUTTON_CLOSE = 4;
 	
 	public OrderListDialog(IOrderListController controller)
 	{
 		this.controller = controller;
+		this.initComponents();
 	}
 	
 	@Override
@@ -83,23 +97,11 @@ public class OrderListDialog extends AbstractDialog
 		test.setBorder(null);
         test.setContentAreaFilled(false);
 		test.setFocusPainted(false);
-		
-		Object[][] data =
-		{
-				{ "1", "Schnitzel, Weißwurst, Wein", "24,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "2", "Pommes, Salat", "7,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "3", "Schweinebraten, Cola, Nudeln, Fisch", "40 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "7", "Nudeln", "9,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "9", "Fisch", "11,50 €", GraphicFactory.getInstance().createTableButton("edit"), GraphicFactory.getInstance().createTableButton("close")},
-				{ "15", "Eis", "2,50 €", "", GraphicFactory.getInstance().createTableButton("closed")},
-				{ "17", "Bier", "3,50 €", "", GraphicFactory.getInstance().createTableButton("closed")},
-				{ "", "", "", "", GraphicFactory.getInstance().createTableButton("add")}
-		};
-		String[] cnames  = { "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schließen" };
+	
+		cnames  = new String[]{ "#", "Produkte", "Gesamtpreis", "Bearbeiten", "Schließen" };
 		
 		table = new Table(new TableModel(cnames,data));
 		table.setVisible(true);
-		//table.setFillsViewportHeight(true);
 		table.setGridColor(Color.BLACK);
 		table.setShowGrid(true);
 		table.setRowHeight(25);
@@ -108,31 +110,73 @@ public class OrderListDialog extends AbstractDialog
 		
 	}
 	
-	private void updateModel()
+	public void updateModel()
 	{
 		if(controller.isTableSelected())
 		{
-			String[][] data = controller.getOrders(controller.getSelectedTable());
-			Object[][] tableData = new Object[data.length][data[0].length+2];		// add buttons!
-			for(int row = 0; row < tableData.length; row++)
+			TableDTO tableDTO = controller.getTableDTO(controller.getSelectedTable());
+			data = new Object[tableDTO.getOrderList().size()+1][COL_COUNT];
+			
+			int row = 0;
+			List<OrderDTO> orderList =  tableDTO.getOrderList();
+			for(OrderDTO orderDTO : orderList)
 			{
-				for(int col = 0; col < tableData[0].length; col++)
+				for(int col = 0; col < orderList.size(); col++)
 				{
-					if(col < data[0].length)
+					switch(col)
 					{
-						tableData[row][col] = data[row][col];
-					}
-					if(controller.isOrderClosed(OrderID))
-					if(col == tableData[0].length-2)
-					{
-						tableData[row][col] = graphicalFactory.createTableButton("edit");
-					}
-					else if(col == tableData[0].length-1)
-					{
-						tableData[row][col] = graphicalFactory.createTableButton("close");
+						case COL_ID: data[row][col] = orderDTO.getId(); break;
+						case COL_PRODUCTS : 
+						{
+							String [] products = orderDTO.getProductNames();
+							for(int i = 0; i < products.length-2; i++)
+							{
+								data[row][col] = data[row][col] + ", " + products[i]+"";
+							}
+							data[row][col] = data[row][col] + ", " + products[products.length-1];	
+						}break;
+						case COL_PRICE : data[row][col] = orderDTO.getPrice() + " €"; break;
+						case COL_BUTTON_EDIT : 
+						{
+							JButton b = graphicalFactory.createTableButton("edit"); 
+							b.addActionListener(new ActionListener()
+							{
+								@Override
+								public void actionPerformed(ActionEvent arg0)
+								{
+									controller.editOrder(table.getSelectedRow());	
+								}
+							});
+							data[row][col] = b; 
+						}
+						break;
+						case COL_BUTTON_CLOSE : 
+						{
+							JButton b = graphicalFactory.createTableButton("close"); 
+							b.addActionListener(new ActionListener()
+							{
+								@Override
+								public void actionPerformed(ActionEvent arg0)
+								{
+									controller.closeOrder(table.getSelectedRow());	
+								}
+							});
+						}
+						break;
 					}
 				}
 			}
+			JButton b = graphicalFactory.createTableButton("add"); 
+			b.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.addOrder();
+				}
+			});
+			data[data.length-1][data[0].length-1] = b;
+			table = new Table(new TableModel(cnames,data));
 		}
 	}
 	

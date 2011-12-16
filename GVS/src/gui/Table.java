@@ -4,12 +4,9 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
@@ -47,10 +44,7 @@ public class Table extends JTable implements MouseListener, MouseMotionListener
 	public void mouseEntered(MouseEvent e){}
 
 	@Override
-	public void mouseExited(MouseEvent e)
-	{
-		
-	}
+	public void mouseExited(MouseEvent e){}
 
 	@Override
 	public void mousePressed(MouseEvent e){}
