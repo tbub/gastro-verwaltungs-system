@@ -1,9 +1,5 @@
 package model;
 
-import java.util.List;
-
-import model.gvsBase.Order;
-
 /**
  * 
  * @author Benedikt Zönnchen
@@ -11,5 +7,5 @@ import model.gvsBase.Order;
  */
 public interface ICalculationUC
 {
-	public List<Order> calculate(String startDate, String endDate);
+	public void calculate(String startDate, String endDate);
 }

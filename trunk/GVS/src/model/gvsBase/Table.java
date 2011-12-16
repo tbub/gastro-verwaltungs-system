@@ -1,6 +1,7 @@
 package model.gvsBase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Basiselement eines Tisches
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 
 public class Table {
 	
-	int TableNr;
-	User User;
-	ArrayList<Order> Orders =  new ArrayList<Order>();
+	private int id;
+	private User user;
+	private List<Order> orders =  new ArrayList<Order>();
 	
 	/**
 	 * Konstruktor
@@ -21,46 +22,56 @@ public class Table {
 	 * @param TableNr
 	 * @param User
 	 */
-	public Table(int TableNr, User User) {
-		this.TableNr = TableNr;
-		this.User = User;
+	public Table(int id, User user) {
+		this.id = id;
+		this.user = user;
 	}
 	
 	
 	/**
 	 * Wenn Bene die Kommunikation startet dann kann er einen Tisch anfragen ohne damit die User zu kennen.
-	 * Damit wei� ich welche Daten ich bekomme
+	 * Damit weiß ich welche Daten ich bekomme
 	 * 
 	 * @param TableNr
 	 */
-	public Table(int TableNr) {
-		this.TableNr = TableNr;
-		this.User = null;
+	public Table(int id) {
+		this.id = id;
+		this.user = null;
 	}
 	
-	public void setOrders(ArrayList<Order> Orders) {
-		this.Orders = Orders;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
-	public void setUser(User User) {
-		this.User = User;
+	public List<Order> getOrders()
+	{
+		return this.orders;
 	}
 	
-	public void setTableNr(int TableNr) {
-		this.TableNr = TableNr;
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser()
+	{
+		return this.user;
+	}
+	
+	public void setTableNr(int id) {
+		this.id = id;
 	}
 	
 	/**
 	 * addOrder
 	 * 
-	 * F�gt eine Bestellung einem Tisch hinzu
+	 * Fügt eine Bestellung einem Tisch hinzu
 	 * 
 	 * @param b
 	 */
 	public void addOrder(Order b) {
 		if(b != null){
 			if(!b.getProducts().isEmpty()) {
-				Orders.add(b);
+				orders.add(b);
 			}
 		}
 	}
@@ -68,9 +79,9 @@ public class Table {
 	
 	public void removeOrder(Order b) {
 		if(b != null) {
-			for(Order o : Orders) {
+			for(Order o : orders) {
 				if(o.equals(b)) {
-					Orders.remove(o);
+					orders.remove(o);
 				}
 			}
 		}
@@ -81,8 +92,8 @@ public class Table {
 	 * toString
 	 */
 	public String toString() {
-		String output = "Tisch: " + TableNr + "\n" + User.toString()+"\n";
-		for(Order b: Orders) {
+		String output = "Tisch: " + id + "\n" + user.toString()+"\n";
+		for(Order b: orders) {
 			output = output + "\n- - -\n";
 			for(Product p: b.getProducts()) {
 				output = output + p.toString() + "\n";

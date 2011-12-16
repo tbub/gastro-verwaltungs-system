@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-import model.gvsBase.User;
+import dto.UserDTO;
 
 public interface IUserUC
 {
@@ -10,7 +10,7 @@ public interface IUserUC
 	public void logout();
 	public boolean checkUser(String name, String password);
 	public boolean isManager(String username);
-	public List<User> getUsers();
-	public User getCurrentUser();
+	public List<UserDTO> getUsers();
+	public UserDTO getCurrentUser();
 	public boolean isCurrentUser(String username);
 }
