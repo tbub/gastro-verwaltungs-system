@@ -1,8 +1,8 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import dto.TableDTO;
 import dto.UserDTO;
@@ -10,23 +10,25 @@ import model.IOrderUC;
 import model.ITableUC;
 import model.IUserUC;
 
-public class OrderListController implements IOrderListController, ActionListener
+public class OrderListController implements IOrderListController
 {
-	private ITableUC tableUC;			// single
+	private ITableUC tableUC;
 	private IOrderUC orderUC;		
 	private IUserUC userUC;
 	private int selectedTable = 0;
 	private boolean isTableselected = false;
+	private OrderListDialog dialog;
 	
-	public OrderListController(ITableUC tableUC, IOrderUC orderUC)
+	public OrderListController(ITableUC tableUC, IOrderUC orderUC, IUserUC userU)
 	{
 		this.tableUC = tableUC;
 		this.orderUC = orderUC;
+		this.userUC = userU;
 	}
 	
 	public void openDialog()
 	{
-		new OrderListDialog(this);
+		dialog = new OrderListDialog(this);
 	}
 	
 	public Set<String> getUsers()
@@ -42,7 +44,7 @@ public class OrderListController implements IOrderListController, ActionListener
 	@Override
 	public TableDTO getTableDTO(int tableID)
 	{
-		return tableUC.getTableDTO(tableID);
+		return tableUC.getTable(tableID);
 	}
 	
 	public boolean isCurrentUser(String username)
@@ -63,17 +65,47 @@ public class OrderListController implements IOrderListController, ActionListener
 	}
 
 	@Override
+	public String[] getUserList()
+	{
+		Collection<UserDTO> userCollection = userUC.getUsers();
+		String[] result = new String[userCollection.size()];
+		
+		int index = 0;
+		for(UserDTO user : userCollection)
+		{
+			result[index++] = user.getName();
+		}
+		return result;
+	}
+	
+
+	@Override
+	public String[] getTableList()
+	{
+		Collection<TableDTO> tableCollection = tableUC.getTables();
+		
+		String[] result = new String[tableCollection.size()];
+		int index = 0;
+		for(TableDTO table : tableCollection)
+		{
+			result[index++] = table.getId()+"";
+		}
+		return result;
+	}
+	
+	@Override
 	public boolean isOrderClosed(int orderID)
 	{
 		return orderUC.isOrderClosed(orderID);
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		
-	}
 
+
+	@Override
+	public void setSelectedTable(int tableID)
+	{
+		this.selectedTable = tableID;	
+	}
+	
 	@Override
 	public void closeOrder(int orderID)
 	{
@@ -92,6 +124,24 @@ public class OrderListController implements IOrderListController, ActionListener
 	public void addOrder()
 	{
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logout()
+	{
+		userUC.logout();
+		// login Dialog öffnen
+	}
+
+	@Override
+	public void changeUser(String username, int tableID)
+	{
+		tableUC.changeUser(tableID, username);
+	}
+	
+	public void calculate()
+	{
 		
 	}
 }

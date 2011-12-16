@@ -17,11 +17,13 @@ public class TableDTO
 {
 	private String username;
 	private List<OrderDTO> orderList;
+	private int id;
 	
 	public TableDTO(Table table)
 	{
 		username = table.getUser().getName();
 		orderList = new ArrayList<OrderDTO>();
+		id = table.getId();
 		for(Order order : table.getOrders())
 		{
 			orderList.add(new OrderDTO(order));
@@ -36,5 +38,10 @@ public class TableDTO
 	public List<OrderDTO> getOrderList()
 	{
 		return orderList;
+	}
+	
+	public int getId()
+	{
+		return id;
 	}
 }

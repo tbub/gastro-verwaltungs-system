@@ -9,9 +9,9 @@ public interface IGraphicFactory
 	public TableButton createTableButton(String name, String fileType);
 	public JButton createTableButton(String name);
 	public JButton createImageButton(String name, boolean rollover);
-	public JLabel createLabel(String name);
+	public JLabel createLabel(String key);
 	public String getProperty(String key);
-	public int showWarningDialog(String message);
-	public int showQuestionDialog(String message, String title);
-	public int showErrorDialog(String message);
+	public int showWarningDialog(String key);
+	public int showQuestionDialog(String key, String title);
+	public int showErrorDialog(String key);
 }

@@ -13,6 +13,9 @@ import javax.swing.table.TableModel;
 public class Table extends JTable implements MouseListener, MouseMotionListener
 {
 	private TableButton rolloverButton = null;
+	
+	public Table(){}
+	
 	public Table(TableModel model)
 	{
 		super(model);

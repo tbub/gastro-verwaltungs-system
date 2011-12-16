@@ -1,6 +1,9 @@
 package gui;
 
-import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -10,23 +13,27 @@ public class LoginDialog extends AbstractDialog
 {
 	private JPasswordField passwordField;
 	private JTextField textField;
+	private IGraphicFactory graphicFactory;
+	private ILoginController controller;
 	
-	public LoginDialog() 
+	public LoginDialog(ILoginController controller) 
 	{
+		this.controller = controller;
+		graphicFactory = GraphicFactory.getInstance();
 		initComponents();
 	}
 	
 	@Override
 	protected void initComponents()
 	{
-		setTitle("GVS Anmeldung");
+		setTitle(graphicFactory.getProperty("title.login.dialog"));
 		getContentPane().setLayout(null);
 		
-		JLabel lblBenutzername = new JLabel("Benutzername:");
+		JLabel lblBenutzername = graphicFactory.createLabel("label.user.name");
 		lblBenutzername.setBounds(16, 25, 100, 16);
-		getContentPane().add(lblBenutzername);
+		getContentPane().add(graphicFactory.createLabel("label.user.name"));
 		
-		JLabel lblKennwort = new JLabel("Kennwort:");
+		JLabel lblKennwort = graphicFactory.createLabel("label.user.password");
 		lblKennwort.setBounds(16, 65, 100, 16);
 		getContentPane().add(lblKennwort);
 		
@@ -42,6 +49,25 @@ public class LoginDialog extends AbstractDialog
 		JButton btnAnmelden = GraphicFactory.getInstance().createImageButton("login", true);
 		btnAnmelden.setBounds(235, 99, 117, 29);
 		getContentPane().add(btnAnmelden);
+		setMaximumSize(new Dimension(350, 160));
+		setMinimumSize(this.getMaximumSize());
+		setResizable(false);
+		setVisible(true);
+		
+		btnAnmelden.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if(controller.checkUser(textField.getText(), new String(passwordField.getPassword())))
+				{
+					controller.login(textField.getText());
+				}
+				else
+				{
+					graphicFactory.showErrorDialog("text.error.login");
+				}
+			}
+		});
 	}
-
 }
