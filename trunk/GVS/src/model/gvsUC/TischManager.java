@@ -1,26 +1,26 @@
 package model.gvsUC;
 
-/** Verantwortlich für die Use Cases
- * - Tisch ändern (Tisch - Bestellungen zuordnung)
- * - Kellner ändern (Kellner - Tisch zuordnung)
+/** Verantwortlich fï¿½r die Use Cases
+ * - Tisch ï¿½ndern (Tisch - Bestellungen zuordnung)
+ * - Kellner ï¿½ndern (Kellner - Tisch zuordnung)
 **/
 
 
 public class TischManager {
 	
 	/**
-	 * UC Tisch Ändern
+	 * UC Tisch ï¿½ndern
 	 * 
-	 * Ändert die Zuordnung eines Tisches zu einer Bestellung
+	 * Ã¤ndert die Zuordnung eines Tisches zu einer Bestellung
 	 */
 	void TischAendern() {
 		
 	}
 	
 	/**
-	 * UC Kellner Ändern
+	 * UC Kellner ï¿½ndern
 	 * 
-	 * Ändert den Kellner eines Tisches
+	 * ï¿½ndert den Kellner eines Tisches
 	 */
 	void KellnerAendern() {
 		

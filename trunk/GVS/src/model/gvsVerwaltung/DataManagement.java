@@ -3,14 +3,14 @@ import java.util.ArrayList;
 import model.gvsBase.*;
 
 /**
- * Verantwortlich für das Laden von
+ * Verantwortlich fÃ¼r das Laden von
  * - Liste an Tische (enthalten ihre Bestellungen selbst als Liste
  * - Liste an Kellnern
  * - Liste an geschlossenen Bestellungen
  * - Liste an offenen Bestellungen
  * 
  * 
- * fragt alle Datenelemente aus der Datenschnittstelle an und speichert sie temporär im System
+ * fragt alle Datenelemente aus der Datenschnittstelle an und speichert sie temporÃ¤r im System
  * 
  * @author Sebastian
  * 
@@ -34,19 +34,19 @@ public class DataManagement {
 	}
 	
 	public void LoadProdukte() {
-		ProdukteListe.add(new Product("Schnitzel", true));
-		ProdukteListe.add(new Product("Hamburger", true));
-		ProdukteListe.add(new Product("Steak", true));
-		ProdukteListe.add(new Product("Cola", false));
-		ProdukteListe.add(new Product("Wasser", false));
-		ProdukteListe.add(new Product("Kaffee", false));
+		ProdukteListe.add(new Product("Schnitzel", ProductType.food));
+		ProdukteListe.add(new Product("Hamburger", ProductType.food));
+		ProdukteListe.add(new Product("Steak", ProductType.food));
+		ProdukteListe.add(new Product("Cola", ProductType.drink));
+		ProdukteListe.add(new Product("Wasser", ProductType.drink));
+		ProdukteListe.add(new Product("Kaffee", ProductType.drink));
 	}
 	
 	public void LoadKellner() {
-		KellnerListe.add(new User("Basti","test"));
-		KellnerListe.add(new User("Bene","test"));
-		KellnerListe.add(new User("Benni","test"));
-		KellnerListe.add(new User("Sebastian","test"));
+		KellnerListe.add(new User("Basti","test", UserType.bartender));
+		KellnerListe.add(new User("Bene","test", UserType.bartender));
+		KellnerListe.add(new User("Benni","test", UserType.manger));
+		KellnerListe.add(new User("Sebastian","test", UserType.bartender));
 	}
 	
 	public void LoadTische() {

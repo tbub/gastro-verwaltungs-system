@@ -3,6 +3,6 @@ package gui;
 public interface ILoginController 
 {
 	public void openDialog();
-	public void login(String username);
-	public boolean checkUser(String username, String password);
+	public boolean login(String username, String password);
+	public void openOrderListDialog();
 }

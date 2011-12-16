@@ -6,24 +6,27 @@ import java.util.List;
 import java.util.Set;
 import dto.TableDTO;
 import dto.UserDTO;
+import model.ICalculationUC;
+import model.IDataUC;
 import model.IOrderUC;
 import model.ITableUC;
 import model.IUserUC;
 
-public class OrderListController implements IOrderListController
+public class OrderListController implements IOrderListController, ICalculationController
 {
-	private ITableUC tableUC;
-	private IOrderUC orderUC;		
+	private ITableUC tableUC;	
 	private IUserUC userUC;
+	private IDataUC dataUC;
+	private ICalculationUC calcUC;
 	private int selectedTable = 0;
 	private boolean isTableselected = false;
 	private OrderListDialog dialog;
 	
-	public OrderListController(ITableUC tableUC, IOrderUC orderUC, IUserUC userU)
+	public OrderListController(ITableUC tableUC, IDataUC dataUC, IUserUC userUC, ICalculationUC calcUC)
 	{
 		this.tableUC = tableUC;
-		this.orderUC = orderUC;
-		this.userUC = userU;
+		this.dataUC = dataUC;
+		this.userUC = userUC;
 	}
 	
 	public void openDialog()
@@ -34,7 +37,7 @@ public class OrderListController implements IOrderListController
 	public Set<String> getUsers()
 	{
 		Set<String> userSet = new HashSet<String>();
-		for(UserDTO user : userUC.getUsers())
+		for(UserDTO user : dataUC.getUsers())
 		{
 			userSet.add(user.getName());
 		}
@@ -44,12 +47,7 @@ public class OrderListController implements IOrderListController
 	@Override
 	public TableDTO getTableDTO(int tableID)
 	{
-		return tableUC.getTable(tableID);
-	}
-	
-	public boolean isCurrentUser(String username)
-	{
-		return userUC.isCurrentUser(username);
+		return dataUC.getTable(tableID);
 	}
 	
 	@Override
@@ -67,7 +65,7 @@ public class OrderListController implements IOrderListController
 	@Override
 	public String[] getUserList()
 	{
-		Collection<UserDTO> userCollection = userUC.getUsers();
+		Collection<UserDTO> userCollection = dataUC.getUsers();
 		String[] result = new String[userCollection.size()];
 		
 		int index = 0;
@@ -82,7 +80,7 @@ public class OrderListController implements IOrderListController
 	@Override
 	public String[] getTableList()
 	{
-		Collection<TableDTO> tableCollection = tableUC.getTables();
+		Collection<TableDTO> tableCollection = dataUC.getTables();
 		
 		String[] result = new String[tableCollection.size()];
 		int index = 0;
@@ -96,7 +94,7 @@ public class OrderListController implements IOrderListController
 	@Override
 	public boolean isOrderClosed(int orderID)
 	{
-		return orderUC.isOrderClosed(orderID);
+		return dataUC.getOrder(orderID).isCloesed();
 	}
 
 
@@ -114,14 +112,14 @@ public class OrderListController implements IOrderListController
 	}
 
 	@Override
-	public void editOrder(int orderID)
+	public void openEditOrder(int orderID)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addOrder()
+	public void openAddOrder()
 	{
 		// TODO Auto-generated method stub
 		
@@ -140,8 +138,20 @@ public class OrderListController implements IOrderListController
 		tableUC.changeUser(tableID, username);
 	}
 	
-	public void calculate()
+	public void openCalculate()
 	{
 		
+	}
+
+	@Override
+	public void calculate(String startDate, String endDate)
+	{
+		calcUC.calculate(startDate, endDate);
+	}
+
+	@Override
+	public boolean isCurrentUserManager()
+	{
+		return dataUC.getCurrentUser().getType().getName().equals("manager");
 	}
 }

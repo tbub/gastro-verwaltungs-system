@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TableList {
 
-	List<Table> Tables;
+	private List<Table> Tables;
 	
 	public TableList() {
 		

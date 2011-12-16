@@ -1,8 +1,7 @@
 package dto;
 
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Collection;
 import model.gvsBase.Order;
 import model.gvsBase.Table;
 
@@ -16,17 +15,17 @@ import model.gvsBase.Table;
 public class TableDTO
 {
 	private String username;
-	private List<OrderDTO> orderList;
+	private Collection<OrderDTO> orderCollection;
 	private int id;
 	
 	public TableDTO(Table table)
 	{
 		username = table.getUser().getName();
-		orderList = new ArrayList<OrderDTO>();
+		orderCollection = new ArrayList<OrderDTO>();
 		id = table.getId();
 		for(Order order : table.getOrders())
 		{
-			orderList.add(new OrderDTO(order));
+			orderCollection.add(new OrderDTO(order));
 		}
 	}
 	
@@ -35,9 +34,9 @@ public class TableDTO
 		return username;
 	}
 
-	public List<OrderDTO> getOrderList()
+	public Collection<OrderDTO> getOrders()
 	{
-		return orderList;
+		return orderCollection;
 	}
 	
 	public int getId()

@@ -9,39 +9,43 @@ package model.gvsBase;
 
 public class Product {
 
-	private String Name;
-	private float Price;
-	private boolean FoodFlag;	// true wenn Speise, False wenn Getränk
+	private String name;
+	private float price;
+	private ProductType type;
 		
-	public Product(String Name,boolean Flag) {
-		this.Name = Name;
-		this.FoodFlag = Flag;
+	public Product(String Name, ProductType type) {
+		this.name = Name;
+		this.type = type;
 	}
 	
 	public String getName() {
-		return Name;
+		return name;
 	}
 	
 	public float getPrice() {
-		return Price;
+		return price;
 	}
 	
-	public boolean isFoodFlag() {
-		return FoodFlag;
+	public boolean isFood() {
+		return type.equals(ProductType.food);
 	}
 
-	public void setName(String Name) {
-		this.Name = Name;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void setPrice(float price) {
-		Price = price;
+		this.price = price;
 	}
 	
-	public void setFoodFlag(boolean foodFlag) {
-		FoodFlag = foodFlag;
+	public void setType(ProductType type) {
+		this.type = type;
 	}
 
+	public ProductType getType()
+	{
+		return type;
+	}
 	
 	/**
 	 * equals 
@@ -75,6 +79,6 @@ public class Product {
 	 * toString
 	 */
 	public String toString() {
-		return Name;
+		return name;
 	}
 }

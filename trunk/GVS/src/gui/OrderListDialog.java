@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Collection;
 import java.util.List;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -17,13 +18,15 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import dto.OrderDTO;
 import dto.TableDTO;
+
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 
-public class OrderListDialog extends AbstractDialog
+public class OrderListDialog extends JFrame implements IDialog
 {
 	private IOrderListController controller;
 	private JTable table;
@@ -42,6 +45,7 @@ public class OrderListDialog extends AbstractDialog
 	private JComboBox cbUsers;
 	private JButton bSaveUser;
 	private JButton bEditUser;
+	private JButton bCalc;
 	
 	public OrderListDialog(IOrderListController controller)
 	{
@@ -50,9 +54,9 @@ public class OrderListDialog extends AbstractDialog
 	}
 	
 	@Override
-	protected void initComponents()
+	public void initComponents()
 	{
-		setTitle("Bestellungen");
+		setTitle(graphicalFactory.getProperty("title.orderList.dialog"));
 		getContentPane().setLayout(new FormLayout(
 			new ColumnSpec[] {
 				ColumnSpec.decode("left:6dlu"),
@@ -90,6 +94,21 @@ public class OrderListDialog extends AbstractDialog
 		cbUsers = new JComboBox(controller.getUserList());
 		getContentPane().add(cbUsers, "4, 4, fill, default");
 		cbUsers.setVisible(false);
+		
+		if(controller.isCurrentUserManager())
+		{
+			bCalc = GraphicFactory.getInstance().createImageButton("calculation", true);
+			getContentPane().add(bCalc, "6, 2");
+			bCalc.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					controller.openCalculate();
+				}
+			});
+		}
+		
 
 		bEditUser = GraphicFactory.getInstance().createImageButton("edit", true);
 		getContentPane().add(bEditUser, "6, 4");
@@ -138,7 +157,7 @@ public class OrderListDialog extends AbstractDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				controller.calculate();			
+				controller.openCalculate();			
 			}
 		});
 	
@@ -175,10 +194,10 @@ public class OrderListDialog extends AbstractDialog
 		if(controller.isTableSelected())
 		{
 			TableDTO tableDTO = controller.getTableDTO(controller.getSelectedTable());
-			data = new Object[tableDTO.getOrderList().size()+1][COL_COUNT];
+			Collection<OrderDTO> orderList =  tableDTO.getOrders();
+			data = new Object[orderList.size()+1][COL_COUNT];
 			
 			int row = 0;
-			List<OrderDTO> orderList =  tableDTO.getOrderList();
 			for(OrderDTO orderDTO : orderList)
 			{
 				for(int col = 0; col < orderList.size(); col++)
@@ -205,7 +224,7 @@ public class OrderListDialog extends AbstractDialog
 								@Override
 								public void actionPerformed(ActionEvent arg0)
 								{
-									controller.editOrder(table.getSelectedRow());	
+									controller.openEditOrder(table.getSelectedRow());	
 								}
 							});
 							data[row][col] = b; 
@@ -233,7 +252,7 @@ public class OrderListDialog extends AbstractDialog
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 				{
-					controller.addOrder();
+					controller.openAddOrder();
 				}
 			});
 			data[data.length-1][data[0].length-1] = b;
