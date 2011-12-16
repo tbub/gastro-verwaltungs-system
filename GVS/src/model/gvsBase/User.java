@@ -10,12 +10,14 @@ package model.gvsBase;
 
 public class User {
 
-	String Name;
-	String Password;
+	private String Name;
+	private String Password;
+	private UserType type;
 	
-	public User(String Name, String Password) {
+	public User(String Name, String Password, UserType type) {
 		this.Name = Name;
 		this.Password = Password;
+		this.type = type;
 	}
 	
 	public String getName() {
@@ -24,6 +26,11 @@ public class User {
 	
 	public String getPassword() {
 		return Password;
+	}
+	
+	public UserType getType()
+	{
+		return type;
 	}
 	
 	@Override

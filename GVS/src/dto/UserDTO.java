@@ -13,11 +13,13 @@ public class UserDTO
 {
 	private String name;
 	private String password;
+	private UserTypeDTO type;
 	
 	public UserDTO(User user)
 	{
 		this.name = user.getName();
 		this.password = user.getPassword();
+		this.type = new UserTypeDTO(user.getType());
 	}
 	
 	public String getPassword()
@@ -28,6 +30,11 @@ public class UserDTO
 	public String getName()
 	{
 		return name;
+	}
+	
+	public UserTypeDTO getType()
+	{
+		return type;
 	}
 }
 

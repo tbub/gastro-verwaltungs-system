@@ -4,12 +4,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class LoginDialog extends AbstractDialog
+public class LoginDialog extends JDialog implements IDialog
 {
 	private JPasswordField passwordField;
 	private JTextField textField;
@@ -24,7 +25,7 @@ public class LoginDialog extends AbstractDialog
 	}
 	
 	@Override
-	protected void initComponents()
+	public void initComponents()
 	{
 		setTitle(graphicFactory.getProperty("title.login.dialog"));
 		getContentPane().setLayout(null);
@@ -59,9 +60,9 @@ public class LoginDialog extends AbstractDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if(controller.checkUser(textField.getText(), new String(passwordField.getPassword())))
+				if(controller.login(textField.getText(), new String(passwordField.getPassword())))
 				{
-					controller.login(textField.getText());
+					controller.openOrderListDialog();
 				}
 				else
 				{

@@ -13,21 +13,22 @@ public class LoginController implements ILoginController
 	}
 	
 	@Override
-	public void login(String username)
+	public boolean login(String username, String password)
 	{
-		userUC.login(username);
-	}
-
-	@Override
-	public boolean checkUser(String username, String password)
-	{
-		return userUC.checkUser(username, password);
+		return userUC.login(username, password);
 	}
 
 	@Override
 	public void openDialog()
 	{
 		this.dialog = new LoginDialog(this);
+	}
+
+	@Override
+	public void openOrderListDialog()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	
