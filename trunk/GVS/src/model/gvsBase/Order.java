@@ -2,6 +2,8 @@ package model.gvsBase;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
 /**
  * Basiselement einer Bestellung
  * 
@@ -140,6 +142,12 @@ public class Order {
 			.concat(System.getProperty("line.separator"));
 		}
 		return output;
+	}
+
+	// added von Basti
+	public Element getDate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

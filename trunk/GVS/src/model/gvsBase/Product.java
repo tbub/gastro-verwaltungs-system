@@ -13,7 +13,8 @@ public class Product {
 	private float price;
 	private ProductType type;
 		
-	public Product(String Name, ProductType type) {
+	public Product(String Name, float price, ProductType type) {
+		this.price = price;
 		this.name = Name;
 		this.type = type;
 	}
