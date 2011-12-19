@@ -1,5 +1,6 @@
 package model.gvsBase;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -16,6 +17,8 @@ public class Order {
 	private List<Product> products;
 	private boolean isClosed;
 	private long orderID;
+	// added by Basti
+	private Date date;
 	
 	
 	/**
@@ -26,14 +29,19 @@ public class Order {
 		 isClosed = false;
 	}
 	
-	public List<Product> getProducts() {
-		return products;
+	// added by basti, den brauch ich um aus meinen datensätzen die orderlist zu erstellen
+	public Order(int orderID, boolean isClosed, Date date, List<Product> products) {
+		super();
+		this.date = date;
+		this.products = products;
+		this.isClosed = isClosed;
+		this.orderID = orderID;
 	}
 	
 	public void setProducts(ArrayList<Product> p) {
 		products = p;
 	}
-	
+
 	public boolean isClosed() {
 		return isClosed;
 	}
