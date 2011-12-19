@@ -1,5 +1,6 @@
 package model.gvsBase;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +13,9 @@ import org.w3c.dom.Element;
  *
  */
 
-public class Order {
-
-	private List<Product> products;
+public class Order 
+{	
+	private Collection<Product> products;
 	private boolean isClosed;
 	private long orderID;
 	// added by Basti
@@ -24,13 +25,17 @@ public class Order {
 	/**
 	 * Konstruktor
 	 */
-	public Order() {
+	public Order(long id)
+	{
 		products =  new ArrayList<Product>();
-		 isClosed = false;
+		isClosed = false;
+		date = new Date();
+		this.orderID = id;
 	}
 	
 	// added by basti, den brauch ich um aus meinen datensätzen die orderlist zu erstellen
-	public Order(int orderID, boolean isClosed, Date date, List<Product> products) {
+	public Order(long orderID, boolean isClosed, Date date, Collection<Product> products) 
+	{
 		super();
 		this.date = date;
 		this.products = products;
@@ -85,16 +90,12 @@ public class Order {
 	 * das dem selben entspricht, wird geloescht, da es wahrscheinlich
 	 * das aktuellste ist
 	 * 
+	 * Bearbeitet durch: Benedikt Zönnchen 19.12.2011
 	 * @author Sebastian
 	 * @param p	Produktobjekt das geloescht wird wird
 	 */
 	public void deleteProdukt(Product p) {
-		for ( int i = products.size()-1; i >= 0 ; i--) {
-			if(products.get(i).equals(p)) {
-				products.remove(i);
-				break;
-			}
-		}
+		products.remove(p);
 	}
 	
 	/**
@@ -108,26 +109,28 @@ public class Order {
 	}
 	
 	/**
-	 * equals
+	 * Bearbeitet durch: Benedikt Zönnchen 19.12.2011
 	 * 
 	 * @author Sebastian
 	 * @param o
 	 */
-	public boolean equals(Order o) {
-		int equalCounter = 0;
-		if(o instanceof Order) {
-			if(o.getClass() == this.getClass()) {
-				for(Product p : o.getProducts()) {
-					for(Product p1 : this.getProducts()) {
-						if(p1 == p) {
-							equalCounter++;
-						}
+	public boolean equals(Order o) 
+	{
+		if(o instanceof Order) 
+		{
+			if(o.getClass() == this.getClass() && o.getProducts().size() == this.getProducts().size()) 
+			{
+				for(Product p : o.getProducts()) 
+				{
+					if(!products.contains(o))
+					{
+						return false;
 					}
 				}
+				return true;
 			}
 		}
-		if(equalCounter == this.getProducts().size()) { return true; }
-		else { return false; }
+		return false;
 	}
 	
 	/**
@@ -143,7 +146,7 @@ public class Order {
 	 * toString
 	 */
 	public String toString() {
-		String output = "";
+		String output = "id: " + orderID + System.getProperty("line.separator");
 		for (Product p: products) {
 			output = output
 			.concat(p.toString())
@@ -153,9 +156,18 @@ public class Order {
 	}
 
 	// added von Basti
-	public Element getDate() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getDate() 
+	{
+		return date;
+	}
+	
+	/**
+	 * @author Benedikt Zönnchen
+	 * @return alle Produkte dieser Bestellung
+	 */
+	public Collection<Product> getProducts()
+	{
+		return products;
 	}
 	
 }

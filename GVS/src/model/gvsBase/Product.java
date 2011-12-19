@@ -12,7 +12,7 @@ public class Product {
 	private String name;
 	private float price;
 	private ProductType type;
-		
+
 	public Product(String Name, float price, ProductType type) {
 		this.price = price;
 		this.name = Name;
