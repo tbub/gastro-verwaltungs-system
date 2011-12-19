@@ -1,4 +1,8 @@
-package gui;
+package gui.login;
+
+import gui.GraphicFactory;
+import gui.IDialog;
+import gui.IGraphicFactory;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

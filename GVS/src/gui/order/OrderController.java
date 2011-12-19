@@ -1,4 +1,4 @@
-package gui;
+package gui.order;
 
 import java.util.Collection;
 import java.util.Set;

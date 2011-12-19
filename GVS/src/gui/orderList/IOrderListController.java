@@ -1,4 +1,4 @@
-package gui;
+package gui.orderList;
 
 
 import dto.TableDTO;

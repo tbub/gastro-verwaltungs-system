@@ -1,4 +1,8 @@
-package gui;
+package gui.orderList;
+
+import gui.GraphicFactory;
+import gui.IDialog;
+import gui.IGraphicFactory;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
