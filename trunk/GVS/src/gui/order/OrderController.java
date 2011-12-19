@@ -1,11 +1,8 @@
 package gui.order;
 
-import java.util.Collection;
 import java.util.Set;
-
 import model.IDataUC;
 import model.IOrderUC;
-import dto.OrderDTO;
 import dto.ProductDTO;
 
 

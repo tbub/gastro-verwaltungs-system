@@ -19,7 +19,7 @@ public interface IOrderUC
 	 * @param orderID
 	 * @param productID
 	 */
-	public void addProduct(int orderID, int productID);
+	public void addProduct(int orderID, String productname);
 	
 	/**
 	 * Bestellung schließen
