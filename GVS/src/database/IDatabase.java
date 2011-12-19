@@ -73,5 +73,7 @@ public interface IDatabase {
 	void saveTotalPayroll(ArrayList<Order> orders,String pathOftotalPayroll_csv);
 	
 	public ArrayList<Product> getProducts();
+	
+	public long getLastOrderId();
 
 }
