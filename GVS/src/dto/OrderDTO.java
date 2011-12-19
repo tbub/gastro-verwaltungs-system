@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Set;
+
 import model.gvsBase.Order;
 import model.gvsBase.Product;
 
@@ -13,9 +15,11 @@ import model.gvsBase.Product;
 public class OrderDTO
 {
 	private String[] productNames;
+	private float[] prices;
 	private float price;
-	private int id;
+	private long id;
 	private boolean isCloesed;
+	private Set<ProductDTO> products;
 	
 	public OrderDTO(Order order)
 	{
@@ -25,14 +29,26 @@ public class OrderDTO
 		int index = 0;
 		for(Product p : order.getProducts())
 		{
+			products.add(new ProductDTO(p));
 			this.price += p.getPrice();
+			prices[index] = p.getPrice();
 			productNames[index++] = p.getName();
 		}
+	}
+	
+	public Set<ProductDTO> getProducts()
+	{
+		return products;
 	}
 	
 	public String[] getProductNames()
 	{
 		return productNames;
+	}
+	
+	public float[] getPrices()
+	{
+		return prices;
 	}
 
 	public boolean isCloesed()
@@ -45,7 +61,7 @@ public class OrderDTO
 		return price;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}

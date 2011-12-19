@@ -15,7 +15,7 @@ public class Order {
 
 	private List<Product> products;
 	private boolean isClosed;
-	private int orderID;
+	private long orderID;
 	
 	
 	/**
@@ -126,7 +126,7 @@ public class Order {
 	 * @author Benedikt
 	 * @return orderID die Bestellungsnummer (eindeutige nummer)
 	 */
-	public int getId()
+	public long getId()
 	{
 		return orderID;
 	}
