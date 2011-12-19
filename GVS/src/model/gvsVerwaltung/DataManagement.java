@@ -34,12 +34,12 @@ public class DataManagement {
 	}
 	
 	public void LoadProdukte() {
-		ProdukteListe.add(new Product("Schnitzel", ProductType.food));
-		ProdukteListe.add(new Product("Hamburger", ProductType.food));
-		ProdukteListe.add(new Product("Steak", ProductType.food));
-		ProdukteListe.add(new Product("Cola", ProductType.drink));
-		ProdukteListe.add(new Product("Wasser", ProductType.drink));
-		ProdukteListe.add(new Product("Kaffee", ProductType.drink));
+		ProdukteListe.add(new Product("Schnitzel", (float)11.5, ProductType.food));
+		ProdukteListe.add(new Product("Hamburger", (float)11.5, ProductType.food));
+		ProdukteListe.add(new Product("Steak", (float)11.5, ProductType.food));
+		ProdukteListe.add(new Product("Cola", (float)11.5, ProductType.drink));
+		ProdukteListe.add(new Product("Wasser", (float)11.5, ProductType.drink));
+		ProdukteListe.add(new Product("Kaffee", (float)11.5, ProductType.drink));
 	}
 	
 	public void LoadKellner() {
