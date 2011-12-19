@@ -35,7 +35,7 @@ public interface IRessourceManager
 	public long getLastOrderId() throws IOException;
 	
 	/**
-	 * Gibt eine Collection von allen Tische, mit den jeweiligem Benutzer zurück.
+	 * Gibt eine Collection voØn allen Tische, mit den jeweiligem Benutzer zurück.
 	 * 
 	 * @return id der zuletzt gespeicherten Bestellung 
 	 */
