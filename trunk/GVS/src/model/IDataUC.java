@@ -21,7 +21,7 @@ public interface IDataUC
 {
 	public Collection<ProductDTO> getProducts();
 	public Collection<ProductTypeDTO> getProductTypes();
-	public OrderDTO getOrder(int orderID);
+	public OrderDTO getOrder(long orderID);
 	public TableDTO getTable(int tableID);
 	public Collection<TableDTO> getTables();
 	public Collection<UserDTO> getUsers();
