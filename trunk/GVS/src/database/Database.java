@@ -1,12 +1,15 @@
 package database;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +39,7 @@ public class Database implements IDatabase{
 	
 	private String pathOfUsers_csv, pathOfProducts_csv, pathOfTables_xml, pathOfUsersOnTables_csv;
 	DocumentBuilder docBuilder;
+	private Properties config;
 
 	public Database(String pathOfUsers_csv, String pathOfProducts_csv, String pathOfUsersOnTables_csv,
 			String pathOfTables_xml) {
@@ -44,6 +48,17 @@ public class Database implements IDatabase{
 		this.pathOfTables_xml = pathOfTables_xml;
 		this.pathOfUsersOnTables_csv = pathOfUsersOnTables_csv;
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		config = new Properties();
+		try
+		{
+			BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties/config.properties"));
+			config.load(stream);
+			stream.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		try {
 			this.docBuilder = docFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
@@ -159,6 +174,7 @@ public class Database implements IDatabase{
 			StreamResult result = new StreamResult(new File(pathOfTables_xml));
 			transformer.transform(source, result);
 	 
+			config.setProperty("last.order.id", newOrder.getId()+"");
 			System.out.println("Done");
 	 
 	   	} catch (TransformerException tfe) {
