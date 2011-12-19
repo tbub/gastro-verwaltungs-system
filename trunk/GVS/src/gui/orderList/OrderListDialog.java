@@ -1,6 +1,8 @@
-package gui;
+package gui.orderList;
 
 import gui.GraphicFactory;
+import gui.IDialog;
+import gui.IGraphicFactory;
 import gui.Table;
 import gui.TableModel;
 import java.awt.Color;

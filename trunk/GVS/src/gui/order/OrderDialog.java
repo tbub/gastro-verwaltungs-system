@@ -1,7 +1,9 @@
-package gui;
+package gui.order;
 
 import javax.swing.JDialog;
 import gui.GraphicFactory;
+import gui.IDialog;
+import gui.IGraphicFactory;
 import gui.Table;
 import gui.TableModel;
 import java.awt.Color;

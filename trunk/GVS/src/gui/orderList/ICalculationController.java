@@ -1,4 +1,4 @@
-package gui;
+package gui.orderList;
 
 public interface ICalculationController
 {

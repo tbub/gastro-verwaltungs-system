@@ -1,4 +1,4 @@
-package gui;
+package gui.orderList;
 
 import java.util.Collection;
 import java.util.HashSet;
