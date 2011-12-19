@@ -1,4 +1,4 @@
-package database;
+package delete;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,12 +7,13 @@ import model.gvsBase.Order;
 import model.gvsBase.Product;
 import model.gvsBase.ProductType;
 
+/*
 public class Test {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		IDatabase db = new Database("users.csv", "products.csv", "tables.csv", "tables.xml");
-		Order order = new Order();
+		Order order = new Order(1);
 		ArrayList<Product> products = db.getProducts();
 		System.out.println(products);
 		order.addProdukt(new Product("Schnitzel", (float)11.5, ProductType.food));
@@ -25,7 +26,7 @@ public class Test {
 		db.saveNewOrder(order, 2);
 		db.saveNewOrder(order, 3);
 		db.saveNewOrder(order, 4);
-		order = new Order();
+		order = new Order(2);
 		order.addProdukt(new Product("Schnitzel", (float)11.5, ProductType.food));
 		order.addProdukt(new Product("Hamburger", (float)11.5, ProductType.food));
 		order.addProdukt(new Product("Steak", (float)11.5, ProductType.food));
@@ -36,7 +37,7 @@ public class Test {
 		db.saveNewOrder(order, 6);
 		db.saveNewOrder(order, 7);
 		db.saveNewOrder(order, 7);
-		order = new Order();
+		order = new Order(3);
 		order.addProdukt(new Product("nur noch eines", (float)11.5, ProductType.food));
 		db.updateOrder(order, 5);
 		db.updateOrder(order, 6);
@@ -48,4 +49,4 @@ public class Test {
 		System.out.println(test);
 	}
 
-}
+}*/

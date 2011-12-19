@@ -1,4 +1,4 @@
-package database;
+package delete;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -35,6 +35,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * 
+ * DO NOT USE THIS CODE!!!!!!!
+ * @author Bene
+ *
+ */
+/*
 public class Database implements IDatabase{
 	
 	private String pathOfUsers_csv, pathOfProducts_csv, pathOfTables_xml, pathOfUsersOnTables_csv;
@@ -567,4 +574,4 @@ public class Database implements IDatabase{
 		return orders;
 	}
 }	
-	
+	*/

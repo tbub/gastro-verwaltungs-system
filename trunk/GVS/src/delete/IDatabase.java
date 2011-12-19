@@ -1,4 +1,4 @@
-package database;
+package delete;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +7,13 @@ import model.gvsBase.Order;
 import model.gvsBase.Product;
 import model.gvsBase.Table;
 import model.gvsBase.User;
+
+/**
+ * 
+ * DO NOT USE THIS CODE!!!!!!!
+ * @author Bene
+ *
+ */
 
 /**
  * The Interface IDatabase.

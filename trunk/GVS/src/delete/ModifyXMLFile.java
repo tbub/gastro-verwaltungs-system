@@ -1,4 +1,4 @@
-package database;
+package delete;
 
 import java.io.File;
 import java.io.IOException;
