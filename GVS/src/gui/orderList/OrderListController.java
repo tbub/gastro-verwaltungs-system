@@ -7,7 +7,7 @@ import java.util.Set;
 import dto.TableDTO;
 import dto.UserDTO;
 import model.ICalculationUC;
-import model.IDataUC;
+import model.IDataManagement;
 import model.IOrderUC;
 import model.ITableUC;
 import model.IUserUC;
@@ -16,13 +16,13 @@ public class OrderListController implements IOrderListController, ICalculationCo
 {
 	private ITableUC tableUC;	
 	private IUserUC userUC;
-	private IDataUC dataUC;
+	private IDataManagement dataUC;
 	private ICalculationUC calcUC;
 	private int selectedTable = 0;
 	private boolean isTableselected = false;
 	private OrderListDialog dialog;
 	
-	public OrderListController(ITableUC tableUC, IDataUC dataUC, IUserUC userUC, ICalculationUC calcUC)
+	public OrderListController(ITableUC tableUC, IDataManagement dataUC, IUserUC userUC, ICalculationUC calcUC)
 	{
 		this.tableUC = tableUC;
 		this.dataUC = dataUC;

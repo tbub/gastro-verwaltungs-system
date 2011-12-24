@@ -28,11 +28,18 @@ public interface IRessourceManager
 	public Collection<Product> getProducts() throws IOException;
 	
 	/**
-	 * Gibt den zuletzt benutzte id der zuletzt gespeicherten Bestellung zurück
+	 * Gibt die zuletzt benutzte id der zuletzt gespeicherten Bestellung zurück
 	 * 
 	 * @return id der zuletzt gespeicherten Bestellung 
 	 */
 	public long getLastOrderId() throws IOException;
+	
+	/**
+	 * Speichert die zuletzt benutzte id der zuletzt gespeicherten Bestellung
+	 * @param id id der zuletzt gespeicherten Bestellung
+	 * @throws IOException
+	 */
+	public void saveLastOrderId(long id) throws IOException;
 	
 	/**
 	 * Gibt eine Collection voØn allen Tische, mit den jeweiligem Benutzer zurück.

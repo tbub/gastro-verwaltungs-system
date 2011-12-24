@@ -100,4 +100,10 @@ public class RessourceManager implements IRessourceManager
 		return list;
 	}
 
+	@Override
+	public void saveLastOrderId(long id) throws IOException
+	{
+		config.setProperty("last.order.id", id+"");
+	}
+
 }

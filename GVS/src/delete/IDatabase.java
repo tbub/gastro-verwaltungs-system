@@ -59,7 +59,7 @@ public interface IDatabase {
 	public void updateOrder(Order existingOrder, int tableID);
 	
 	/**
-	 * Gibt die Gesamtabrechnung zur�ck. 
+	 * Gibt die Gesamtabrechnung zurück. 
 	 * 
 	 * Diese ist eine Liste von Bestellungen in einem gegebenen Zeitraum. Die Liste ist unsortiert.
 	 *

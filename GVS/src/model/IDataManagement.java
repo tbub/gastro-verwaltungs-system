@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import dto.OrderDTO;
@@ -17,13 +18,13 @@ import dto.UserDTO;
  * nur DataTransferObjects (DTO's) zurück gegeben, die nicht veränderbar sind.
  * 
  */
-public interface IDataUC
+public interface IDataManagement
 {
-	public Collection<ProductDTO> getProducts();
-	public Collection<ProductTypeDTO> getProductTypes();
-	public OrderDTO getOrder(long orderID);
-	public TableDTO getTable(int tableID);
-	public Collection<TableDTO> getTables();
-	public Collection<UserDTO> getUsers();
-	public UserDTO getCurrentUser();
+	public Collection<ProductDTO> getProducts() throws IOException;
+	public Collection<ProductTypeDTO> getProductTypes() throws IOException;
+	public OrderDTO getOrder(long orderID) throws IOException;
+	public TableDTO getTable(int tableID) throws IOException;
+	public Collection<TableDTO> getTables() throws IOException;
+	public Collection<UserDTO> getUsers() throws IOException;
+	public UserDTO getCurrentUser() throws IOException;
 }

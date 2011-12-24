@@ -6,17 +6,17 @@ import java.util.List;
 
 import dto.ProductDTO;
 import dto.ProductTypeDTO;
-import model.IDataUC;
+import model.IDataManagement;
 import model.IOrderUC;
 import model.gvsBase.ProductType;
 
 public class AddProductController implements IAddProductController
 {
 	private IOrderUC orderUC;
-	private IDataUC dataUC;
+	private IDataManagement dataUC;
 	private int orderID;
 	
-	public AddProductController(IOrderUC orderUC, IDataUC dataUC, int orderID)
+	public AddProductController(IOrderUC orderUC, IDataManagement dataUC, int orderID)
 	{
 		this.orderUC = orderUC;
 		this.orderID = orderID;

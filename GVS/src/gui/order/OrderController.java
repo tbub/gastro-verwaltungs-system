@@ -1,7 +1,7 @@
 package gui.order;
 
 import java.util.Set;
-import model.IDataUC;
+import model.IDataManagement;
 import model.IOrderUC;
 import dto.ProductDTO;
 
@@ -9,10 +9,10 @@ import dto.ProductDTO;
 public class OrderController implements IOrderController
 {
 	private IOrderUC orderUC;
-	private IDataUC dataUC;
+	private IDataManagement dataUC;
 	private final long orderID;
 	
-	public OrderController(IDataUC dataUC, IOrderUC orderUC, long orderID)
+	public OrderController(IDataManagement dataUC, IOrderUC orderUC, long orderID)
 	{
 		this.dataUC = dataUC;
 		this.orderID = orderID;

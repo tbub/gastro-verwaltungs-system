@@ -2,7 +2,14 @@ package gui;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.Serializable;
 import java.util.Properties;
 
 import javax.swing.Icon;
@@ -11,12 +18,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class GraphicFactory implements IGraphicFactory
+
+public class GraphicFactory implements IGraphicFactory, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8480667810422448995L;
 	private static final String PATH = "images/";
 	private static final String STANDARD_IMAGE_DATA_TYPE = "png";
 	private Properties prop;
-	private static IGraphicFactory instance;
+	private static IGraphicFactory instance = new GraphicFactory();;
 
 	private GraphicFactory()
 	{
@@ -32,15 +44,18 @@ public class GraphicFactory implements IGraphicFactory
 			e.printStackTrace();
 		}
 	}
+	 /**
+	  *TODO
+	  * @param x
+	  */
+	public final void writeObject(OutputStream x)
+	{
+		throw new IllegalArgumentException("schnaps");
+	}
 	
 	public static IGraphicFactory getInstance()
 	{
-		if(instance == null)
-		{
-			instance = new GraphicFactory();
-		}
 		return instance;
-		
 	}
 	
 	public JButton createImageButton(String name, String fileType, boolean rollover)
@@ -109,5 +124,30 @@ public class GraphicFactory implements IGraphicFactory
 	{
 		return prop.getProperty(key);
 	} 
+	public static void main(String[] args) throws ClassNotFoundException
+	{
+		
+		try
+		{
+			FileOutputStream pos = new FileOutputStream("xy.dat");
+			ObjectOutputStream oos = new ObjectOutputStream(pos);
+			IGraphicFactory fac = GraphicFactory.getInstance();
+			oos.writeObject(fac);
+			oos.flush();
+			oos.close();
+			
+			FileInputStream pis = new FileInputStream("xy.dat");
+			ObjectInputStream ois = new ObjectInputStream(pis);
+			
+			GraphicFactory gf = (GraphicFactory)ois.readObject();
+			oos.close();
+			System.out.println(GraphicFactory.getInstance());
+			System.out.println(gf);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 }
