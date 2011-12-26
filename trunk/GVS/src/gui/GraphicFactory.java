@@ -104,19 +104,19 @@ public class GraphicFactory implements IGraphicFactory, Serializable
 	
 	public int showErrorDialog(String key)
 	{
-		ImageIcon icon = new ImageIcon("icons/error_icon.png");
+		ImageIcon icon = new ImageIcon(PATH+"error_icon.png");
 		return JOptionPane.showConfirmDialog(null, getProperty(key), "Fehler", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, icon);
 	}
 	
 	public int showQuestionDialog(String key, String title)
 	{
-		ImageIcon icon = new ImageIcon("icons/question_icon.png");
+		ImageIcon icon = new ImageIcon(PATH+"question_icon.png");
 		return JOptionPane.showConfirmDialog(null, getProperty(key), title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icon);
 	}
 	
 	public int showWarningDialog(String key)
 	{
-		ImageIcon icon = new ImageIcon("icons/warning_icon.png");
+		ImageIcon icon = new ImageIcon(PATH+"warning_icon.png");
 		return JOptionPane.showConfirmDialog(null, getProperty(key), "Warnung",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, icon);
 	}
 	

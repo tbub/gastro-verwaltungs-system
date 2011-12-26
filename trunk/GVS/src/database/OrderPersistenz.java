@@ -26,7 +26,7 @@ public class OrderPersistenz implements IOrderPersistenz
 	private Document document;
 	private final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
 	
-	public OrderPersistenz(String filename) throws Exception
+	public OrderPersistenz(String filename) throws IOException
 	{
 		this.filename = filename;
 		this.docBuilder = new SAXBuilder();
@@ -91,7 +91,7 @@ public class OrderPersistenz implements IOrderPersistenz
 	{
 		XMLOutputter out = new XMLOutputter();
 		out.setFormat(Format.getPrettyFormat());
-		OutputStream outs = new FileOutputStream("test.xml");
+		OutputStream outs = new FileOutputStream(filename);
 		out.output(document, outs);
 	}
 	
@@ -125,6 +125,7 @@ public class OrderPersistenz implements IOrderPersistenz
 			Element productElement = (Element)o;
 			ProductType type = productElement.getChild("art").getText().equals("Getränk")?ProductType.drink:ProductType.food;
 			Product p = new Product(productElement.getChild("name").getText(), Float.valueOf(productElement.getChild("preis").getText()), type);
+			productList.add(p);
 		}
 		
 		Order order;
@@ -165,7 +166,7 @@ public class OrderPersistenz implements IOrderPersistenz
 		id.addContent(order.getId()+"");
 		
 		Element closed = new Element("offen");
-		closed.addContent(order.isClosed()+"");
+		closed.addContent(!order.isClosed()+"");
 		
 		Element date = new Element("datum");
 		date.addContent(dateFormat.format(order.getDate()));

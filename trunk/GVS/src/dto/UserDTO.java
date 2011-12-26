@@ -36,5 +36,11 @@ public class UserDTO
 	{
 		return type;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "Name: " + name + "\nPassword: " + password + "\nTyp: " + type.toString();
+	}
 }
 

@@ -1,4 +1,9 @@
 package model;
+
+import java.io.IOException;
+
+import dto.UserDTO;
+
 /**
  * 
  * @author Benedikt Zönnchen
@@ -11,6 +16,7 @@ package model;
  */
 public interface IUserUC
 {
-	public boolean login(String username, String password);
+	public boolean login(String username, String password) throws IOException;
 	public void logout();
+	public UserDTO getCurrentUser() throws IOException;
 }

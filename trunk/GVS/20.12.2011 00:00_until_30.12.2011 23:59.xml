@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bestellungen>
+  <bestellung>
+    <id>3</id>
+    <offen>false</offen>
+    <datum>25.12.2011 22:03</datum>
+    <produkte>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+    </produkte>
+  </bestellung>
+  <bestellung>
+    <id>2</id>
+    <offen>false</offen>
+    <datum>25.12.2011 22:13</datum>
+    <produkte>
+      <produkt>
+        <art>Getränk</art>
+        <preis>5.5</preis>
+        <name>Cola</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Getränk</art>
+        <preis>5.5</preis>
+        <name>Cola</name>
+      </produkt>
+    </produkte>
+  </bestellung>
+</bestellungen>
+

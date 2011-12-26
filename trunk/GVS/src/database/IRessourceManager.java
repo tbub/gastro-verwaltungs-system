@@ -47,5 +47,7 @@ public interface IRessourceManager
 	 * @return id der zuletzt gespeicherten Bestellung 
 	 */
 	public Collection<Table> getTables() throws IOException;
+	
+	public String getProperty(String key);
 
 }

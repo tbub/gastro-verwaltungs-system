@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +34,7 @@ import javax.swing.JScrollPane;
 public class OrderListDialog extends JFrame implements IDialog
 {
 	private IOrderListController controller;
-	private JTable table;
+	private final JTable table;
 	private Object[][] data;
 	private String[]  cnames;
 	private IGraphicFactory graphicalFactory = GraphicFactory.getInstance();
@@ -45,12 +48,17 @@ public class OrderListDialog extends JFrame implements IDialog
 	
 	private JLabel lUser;
 	private JComboBox cbUsers;
+	private JComboBox cbTable;
 	private JButton bSaveUser;
 	private JButton bEditUser;
 	private JButton bCalc;
+	private JButton bAddOrder;
+	private JButton bLogout;
+	private List<JButton> editButtons = new ArrayList<JButton>();
 	
 	public OrderListDialog(IOrderListController controller)
 	{
+		this.table = new Table();
 		this.controller = controller;
 		this.initComponents();
 	}
@@ -58,7 +66,9 @@ public class OrderListDialog extends JFrame implements IDialog
 	@Override
 	public void initComponents()
 	{
+		getContentPane().removeAll();
 		setTitle(graphicalFactory.getProperty("title.orderList.dialog"));
+		setVisible(true);
 		getContentPane().setLayout(new FormLayout(
 			new ColumnSpec[] {
 				ColumnSpec.decode("left:6dlu"),
@@ -81,17 +91,15 @@ public class OrderListDialog extends JFrame implements IDialog
 		
 		getContentPane().add(graphicalFactory.createLabel("label.table"), "2, 2, right, default");
 
-		JComboBox comboBox = new JComboBox(controller.getTableList());
-		getContentPane().add(comboBox, "4, 2, fill, default");
+		cbTable = new JComboBox(controller.getTableList());
+		getContentPane().add(cbTable, "4, 2, fill, default");
 		
-		JButton logout = GraphicFactory.getInstance().createImageButton("logout", true);
-		getContentPane().add(logout, "8, 2, right, default");
+		bLogout = GraphicFactory.getInstance().createImageButton("logout", true);
+		getContentPane().add(bLogout, "8, 2, right, default");
 		
-		JButton calcButton = GraphicFactory.getInstance().createImageButton("calculation", true);
-		getContentPane().add(calcButton, "6, 2");
 		getContentPane().add(graphicalFactory.createLabel("label.user"), "2, 4");
-		lUser = graphicalFactory.createLabel("label.user.name");
-		getContentPane().add(graphicalFactory.createLabel("label.user.name"), "4, 4");
+		lUser = new JLabel("");
+		getContentPane().add(lUser, "4, 4");
 		
 		cbUsers = new JComboBox(controller.getUserList());
 		getContentPane().add(cbUsers, "4, 4, fill, default");
@@ -99,7 +107,7 @@ public class OrderListDialog extends JFrame implements IDialog
 		
 		if(controller.isCurrentUserManager())
 		{
-			bCalc = GraphicFactory.getInstance().createImageButton("calculation", true);
+			bCalc = GraphicFactory.getInstance().createImageButton("calculation", false);
 			getContentPane().add(bCalc, "6, 2");
 			bCalc.addActionListener(new ActionListener()
 			{
@@ -133,36 +141,45 @@ public class OrderListDialog extends JFrame implements IDialog
 			public void actionPerformed(ActionEvent arg0)
 			{
 				controller.changeUser(cbUsers.getSelectedItem().toString(), controller.getSelectedTable());
+				System.out.println("change user");
+				setEnableChangeUser(false);
 			}
 		});
 		
-		comboBox.addItemListener(new ItemListener()
+		cbTable.addItemListener(new ItemListener()
 		{
 			@Override
 			public void itemStateChanged(ItemEvent e)
 			{
-				controller.setSelectedTable((Integer)e.getItem());
+				if(e.getStateChange() == ItemEvent.SELECTED)
+				{
+					controller.setSelectedTable(Integer.valueOf(e.getItem().toString()));
+				}
 			}
 		});
 		
-		logout.addActionListener(new ActionListener()
+		bLogout.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				controller.logout();
-			}
-		});
-		
-		calcButton.addActionListener(new ActionListener()
-		{	
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				controller.openCalculate();			
+				if(controller.logout())
+				{
+					OrderListDialog.this.dispose();
+				}
 			}
 		});
 	
+		bAddOrder = graphicalFactory.createTableButton("add"); 
+		bAddOrder.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				controller.openAddOrder();
+			}
+		});
+		
 		cnames  = new String[]{ 
 				graphicalFactory.getProperty("label.first.col.order.list"), 
 				graphicalFactory.getProperty("label.second.col.order.list"), 
@@ -170,7 +187,6 @@ public class OrderListDialog extends JFrame implements IDialog
 				graphicalFactory.getProperty("label.fourth.col.order.list"), 
 				graphicalFactory.getProperty("label.fith.col.order.list") };
 		
-		table = new Table();
 		table.setVisible(true);
 		table.setGridColor(Color.BLACK);
 		table.setShowGrid(true);
@@ -178,6 +194,15 @@ public class OrderListDialog extends JFrame implements IDialog
 		getContentPane().add(new JScrollPane(table), "2, 6, 7, 1, fill, fill");
 		setMinimumSize(new Dimension(400, 550));
 		setEnableChangeUser(false);
+		
+		addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				controller.closeDialog();
+			}
+		});
 	}
 	
 	private void setEnableChangeUser(boolean enable)
@@ -189,77 +214,98 @@ public class OrderListDialog extends JFrame implements IDialog
 		bEditUser.setEnabled(!enable);
 		bSaveUser.setVisible(enable);
 		bSaveUser.setEnabled(enable);
+		cbTable.setEnabled(!enable);
+		
 	}
 	
+	@Override
+	public void enable(boolean bool)
+	{
+		bAddOrder.setEnabled(bool);
+		bLogout.setEnabled(bool);
+		cbTable.setEnabled(bool);
+		bEditUser.setEnabled(bool);
+		bSaveUser.setEnabled(bool);
+		cbUsers.setEnabled(bool);
+		for(JButton b : editButtons)
+		{
+			b.setEnabled(bool);
+		}
+	}
+	
+	@Override
 	public void updateModel()
 	{
-		if(controller.isTableSelected())
+		TableDTO tableDTO = controller.getTableDTO(controller.getSelectedTable());
+		Collection<OrderDTO> orderList =  tableDTO.getOrders();
+		data = new Object[orderList.size()+1][COL_COUNT];
+		editButtons.clear();
+		int row = 0;
+		for(OrderDTO orderDTO : orderList)
 		{
-			TableDTO tableDTO = controller.getTableDTO(controller.getSelectedTable());
-			Collection<OrderDTO> orderList =  tableDTO.getOrders();
-			data = new Object[orderList.size()+1][COL_COUNT];
-			
-			int row = 0;
-			for(OrderDTO orderDTO : orderList)
+			final long orderId = orderDTO.getId();
+			for(int col = 0; col < COL_COUNT; col++)
 			{
-				for(int col = 0; col < orderList.size(); col++)
+				switch(col)
 				{
-					switch(col)
+					case COL_ID: data[row][col] = orderDTO.getId(); break;
+					case COL_PRODUCTS : 
 					{
-						case COL_ID: data[row][col] = orderDTO.getId(); break;
-						case COL_PRODUCTS : 
+						String [] products = orderDTO.getProductNames();
+						data[row][col] = "";
+						for(int i = 0; i < products.length-1; i++)
 						{
-							String [] products = orderDTO.getProductNames();
-							for(int i = 0; i < products.length-2; i++)
-							{
-								data[row][col] = data[row][col] + ", " + products[i]+"";
-							}
-							data[row][col] = data[row][col] + ", " + products[products.length-1];	
-						}break;
-						case COL_PRICE : 
-							data[row][col] = orderDTO.getPrice() + " " + graphicalFactory.getProperty("currency.symbol"); break;
-						case COL_BUTTON_EDIT : 
+							data[row][col] = data[row][col] + products[i] + ", ";
+						}
+						data[row][col] = data[row][col] + products[products.length-1];	
+					}break;
+					case COL_PRICE : 
+						data[row][col] = orderDTO.getPrice() + " " + graphicalFactory.getProperty("currency.symbol"); break;
+					case COL_BUTTON_EDIT : 
+					{
+						if(!orderDTO.isCloesed())
 						{
 							JButton b = graphicalFactory.createTableButton("edit"); 
+							editButtons.add(b);
 							b.addActionListener(new ActionListener()
 							{
 								@Override
 								public void actionPerformed(ActionEvent arg0)
 								{
-									controller.openEditOrder(table.getSelectedRow());	
+									controller.openEditOrder(orderId);	
 								}
 							});
-							data[row][col] = b; 
+							data[row][col] = b;
 						}
-						break;
-						case COL_BUTTON_CLOSE : 
+					}
+					break;
+					case COL_BUTTON_CLOSE : 
+					{
+						if(!orderDTO.isCloesed())
 						{
 							JButton b = graphicalFactory.createTableButton("close"); 
+							editButtons.add(b);
 							b.addActionListener(new ActionListener()
 							{
 								@Override
 								public void actionPerformed(ActionEvent arg0)
 								{
-									controller.closeOrder((Integer) table.getModel().getValueAt(table.getSelectedRow(), COL_ID));	
+									controller.closeOrder(orderId);	
 								}
 							});
+							data[row][col] = b;
 						}
-						break;
 					}
+					break;
 				}
 			}
-			JButton b = graphicalFactory.createTableButton("add"); 
-			b.addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-				{
-					controller.openAddOrder();
-				}
-			});
-			data[data.length-1][data[0].length-1] = b;
-			table.setModel(new TableModel(cnames,data));
+			row++;
 		}
+		lUser.setText(tableDTO.getUsername());
+		data[data.length-1][data[0].length-1] = bAddOrder;
+		
+		table.setModel(new TableModel(cnames,data));
+		System.out.println("update OrderListModel");
 	}
 	
 	

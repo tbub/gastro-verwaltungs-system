@@ -1,4 +1,4 @@
-package model.gvsUC;
+package delete.model.gvsUC;
 
 /** Verantwortlich f�r die Use Cases
  * - Tisch �ndern (Tisch - Bestellungen zuordnung)

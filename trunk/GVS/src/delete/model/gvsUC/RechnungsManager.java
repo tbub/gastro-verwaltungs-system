@@ -1,4 +1,4 @@
-package model.gvsUC;
+package delete.model.gvsUC;
 
 
 /** Verantwortlich für die Use Cases

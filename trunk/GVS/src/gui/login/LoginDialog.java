@@ -3,18 +3,17 @@ package gui.login;
 import gui.GraphicFactory;
 import gui.IDialog;
 import gui.IGraphicFactory;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import model.GvsUsecaseController;
 
-public class LoginDialog extends JDialog implements IDialog
+public class LoginDialog extends JFrame implements IDialog
 {
 	private JPasswordField passwordField;
 	private JTextField textField;
@@ -36,7 +35,7 @@ public class LoginDialog extends JDialog implements IDialog
 		
 		JLabel lblBenutzername = graphicFactory.createLabel("label.user.name");
 		lblBenutzername.setBounds(16, 25, 100, 16);
-		getContentPane().add(graphicFactory.createLabel("label.user.name"));
+		getContentPane().add(lblBenutzername);
 		
 		JLabel lblKennwort = graphicFactory.createLabel("label.user.password");
 		lblKennwort.setBounds(16, 65, 100, 16);
@@ -59,6 +58,8 @@ public class LoginDialog extends JDialog implements IDialog
 		setResizable(false);
 		setVisible(true);
 		
+		setAlwaysOnTop(true);
+		
 		btnAnmelden.addActionListener(new ActionListener()
 		{
 			@Override
@@ -67,6 +68,7 @@ public class LoginDialog extends JDialog implements IDialog
 				if(controller.login(textField.getText(), new String(passwordField.getPassword())))
 				{
 					controller.openOrderListDialog();
+					LoginDialog.this.dispose();
 				}
 				else
 				{
@@ -74,5 +76,15 @@ public class LoginDialog extends JDialog implements IDialog
 				}
 			}
 		});
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+	
+	public static void main(String[] args)
+	{
+		// start der Anwendung
+		new LoginDialog(new LoginController(GvsUsecaseController.getInstance()));
+	}
+
+	@Override
+	public void updateModel(){}
 }

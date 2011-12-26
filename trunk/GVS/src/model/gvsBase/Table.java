@@ -1,6 +1,7 @@
 package model.gvsBase;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -10,11 +11,12 @@ import java.util.List;
  *
  */
 
-public class Table {
+public class Table implements Comparable<Table>
+{
 	
 	private int id;
 	private User user;
-	private List<Order> orders =  new ArrayList<Order>();
+	private Collection<Order> orders =  new HashSet<Order>();
 	
 	/**
 	 * Konstruktor
@@ -22,7 +24,8 @@ public class Table {
 	 * @param TableNr
 	 * @param User
 	 */
-	public Table(int id, User user) {
+	public Table(int id, User user)
+	{
 		this.id = id;
 		this.user = user;
 	}
@@ -34,21 +37,24 @@ public class Table {
 	 * 
 	 * @param TableNr
 	 */
-	public Table(int id) {
+	public Table(int id) 
+	{
 		this.id = id;
 		this.user = null;
 	}
 	
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<Order> orders) 
+	{
 		this.orders = orders;
 	}
 	
-	public List<Order> getOrders()
+	public Collection<Order> getOrders()
 	{
 		return this.orders;
 	}
 	
-	public void setUser(User user) {
+	public void setUser(User user) 
+	{
 		this.user = user;
 	}
 	
@@ -57,7 +63,8 @@ public class Table {
 		return this.user;
 	}
 	
-	public void setTableNr(int id) {
+	public void setTableNr(int id) 
+	{
 		this.id = id;
 	}
 	
@@ -68,44 +75,82 @@ public class Table {
 	 * 
 	 * @param b
 	 */
-	public void addOrder(Order b) {
-		if(b != null){
-			if(!b.getProducts().isEmpty()) {
+	public void addOrder(Order b)
+	{
+		if(b != null)
+		{
+			if(!b.getProducts().isEmpty()) 
+			{
 				orders.add(b);
 			}
 		}
 	}
 	
 	
-	public void removeOrder(Order b) {
-		if(b != null) {
-			for(Order o : orders) {
-				if(o.equals(b)) {
-					orders.remove(o);
-				}
-			}
-		}
+	public Order removeOrder(Order b) 
+	{
+		orders.remove(b);
+		return b;
+	}
+	
+	public Order removeOrder(long orderId)
+	{
+		Order order = getOrder(orderId);
+		return removeOrder(order);
 	}
 	
 	
 	/**
 	 * toString
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		String output = "Tisch: " + id + "\n" + user.toString()+"\n";
-		for(Order b: orders) {
+		for(Order b: orders) 
+		{
 			output = output + "\n- - -\n";
-			for(Product p: b.getProducts()) {
+			for(Product p: b.getProducts())
+			{
 				output = output + p.toString() + "\n";
 			}
 		}
 		return output;
 	}
 
-
+	public boolean containsOrder(long orderId)
+	{
+		return getOrder(orderId) != null;
+	}
+	
+	public Order getOrder(long orderId)
+	{
+		for(Order order : orders)
+		{
+			if(order.getId() == orderId)
+			{
+				return order;
+			}
+		}
+		return null;
+	}
+	
 	public int getId()
 	{
 		return id;
+	}
+
+	@Override
+	public int compareTo(Table o)
+	{
+		if(o.getId() < this.getId())
+		{
+			return 1;
+		}
+		else if(o.getId() > this.getId())
+		{
+			return -1;
+		}
+		return 0;
 	}
 	
 }

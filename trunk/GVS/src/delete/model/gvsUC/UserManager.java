@@ -1,7 +1,7 @@
-package model.gvsUC;
+package delete.model.gvsUC;
 
 
-/** Verantwortlich für die Use Cases
+/** Verantwortlich fï¿½r die Use Cases
  * - Benutzer anmelden
  * - Benutzer abmelden
 **/

@@ -1,45 +1,52 @@
 package gui.orderList;
 
+import gui.GraphicFactory;
+import gui.IDialog;
+import gui.login.LoginController;
+import gui.login.LoginDialog;
+import gui.order.IOrderController;
+import gui.order.OrderController;
+import gui.order.OrderDialog;
+
+import java.awt.Window;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import dto.TableDTO;
 import dto.UserDTO;
-import model.ICalculationUC;
+import model.GvsUsecaseController;
 import model.IDataManagement;
-import model.IOrderUC;
-import model.ITableUC;
-import model.IUserUC;
+import model.IGvsController;
 
 public class OrderListController implements IOrderListController, ICalculationController
 {
-	private ITableUC tableUC;	
-	private IUserUC userUC;
+	private IGvsController useCaseController;	
 	private IDataManagement dataUC;
-	private ICalculationUC calcUC;
-	private int selectedTable = 0;
-	private boolean isTableselected = false;
-	private OrderListDialog dialog;
+	private int selectedTable = 1;
+	private IDialog dialog;
+	private IDialog loginDialog;
 	
-	public OrderListController(ITableUC tableUC, IDataManagement dataUC, IUserUC userUC, ICalculationUC calcUC)
+	public OrderListController(IDialog loginDialog)
 	{
-		this.tableUC = tableUC;
-		this.dataUC = dataUC;
-		this.userUC = userUC;
-	}
-	
-	public void openDialog()
-	{
-		dialog = new OrderListDialog(this);
+		this.useCaseController = GvsUsecaseController.getInstance();
+		this.dataUC = useCaseController.getDataManagement();
+		this.loginDialog = loginDialog;
 	}
 	
 	public Set<String> getUsers()
 	{
 		Set<String> userSet = new HashSet<String>();
-		for(UserDTO user : dataUC.getUsers())
+		try
 		{
-			userSet.add(user.getName());
+			for(UserDTO user : dataUC.getUsers())
+			{
+				userSet.add(user.getName());
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 		return userSet;
 	}
@@ -47,13 +54,15 @@ public class OrderListController implements IOrderListController, ICalculationCo
 	@Override
 	public TableDTO getTableDTO(int tableID)
 	{
-		return dataUC.getTable(tableID);
-	}
-	
-	@Override
-	public boolean isTableSelected()
-	{
-		return isTableselected;
+		try
+		{
+			return dataUC.getTable(tableID);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
@@ -65,36 +74,63 @@ public class OrderListController implements IOrderListController, ICalculationCo
 	@Override
 	public String[] getUserList()
 	{
-		Collection<UserDTO> userCollection = dataUC.getUsers();
-		String[] result = new String[userCollection.size()];
-		
-		int index = 0;
-		for(UserDTO user : userCollection)
+		Collection<UserDTO> userCollection;
+		try
 		{
-			result[index++] = user.getName();
+			userCollection = dataUC.getUsers();
+			String[] result = new String[userCollection.size()];
+			
+			int index = 0;
+			for(UserDTO user : userCollection)
+			{
+				result[index++] = user.getName();
+			}
+			return result;
 		}
-		return result;
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 	
 
 	@Override
 	public String[] getTableList()
 	{
-		Collection<TableDTO> tableCollection = dataUC.getTables();
-		
-		String[] result = new String[tableCollection.size()];
-		int index = 0;
-		for(TableDTO table : tableCollection)
+		Collection<TableDTO> tableCollection;
+		try
 		{
-			result[index++] = table.getId()+"";
+			tableCollection = dataUC.getTables();
+			String[] result = new String[tableCollection.size()];
+			int index = 0;
+			for(TableDTO table : tableCollection)
+			{
+				result[index++] = table.getId()+"";
+			}
+			return result;
 		}
-		return result;
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@Override
 	public boolean isOrderClosed(int orderID)
 	{
-		return dataUC.getOrder(orderID).isCloesed();
+		try
+		{
+			return dataUC.getOrder(orderID).isCloesed();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 
@@ -102,56 +138,110 @@ public class OrderListController implements IOrderListController, ICalculationCo
 	public void setSelectedTable(int tableID)
 	{
 		this.selectedTable = tableID;	
+		dialog.updateModel();
 	}
 	
 	@Override
-	public void closeOrder(int orderID)
+	public void closeOrder(long orderID)
 	{
-		// TODO Auto-generated method stub
-		
+		useCaseController.closeOrder(orderID);
+		this.dialog.updateModel();
 	}
 
 	@Override
-	public void openEditOrder(int orderID)
+	public void openEditOrder(long orderID)
 	{
-		// TODO Auto-generated method stub
-		
+		IOrderController controller;
+		controller = new OrderController(orderID, getSelectedTable(), this);
+		OrderDialog dialog = new OrderDialog(controller, (Window)this.dialog);
+		controller.setDialog(dialog);
+		dialog.updateModel();
+		this.dialog.enable(false);
+		System.out.println("open productList id:"+orderID);
 	}
 
 	@Override
 	public void openAddOrder()
 	{
-		// TODO Auto-generated method stub
-		
+		try
+		{
+			openEditOrder(dataUC.getLastOrderId()+1);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void logout()
+	public boolean logout()
 	{
-		userUC.logout();
-		// login Dialog öffnen
+		useCaseController.logout();
+		new LoginDialog(new LoginController(this.useCaseController));
+		return true;
 	}
 
 	@Override
 	public void changeUser(String username, int tableID)
 	{
-		tableUC.changeUser(tableID, username);
+		useCaseController.changeUser(tableID, username);
+		dialog.updateModel();
 	}
 	
 	public void openCalculate()
 	{
-		
+		IDialog calcDialog = new CalculationDialog(this, (Window)dialog);
 	}
 
 	@Override
-	public void calculate(String startDate, String endDate)
+	public boolean calculate(String startDate, String endDate)
 	{
-		calcUC.calculate(startDate, endDate);
+		startDate = startDate + " 00:00";
+		endDate = endDate + " 23:59";
+		if(useCaseController.validateDate(startDate) && useCaseController.validateDate(endDate))
+		{
+			useCaseController.calculate(startDate, endDate);
+			GraphicFactory.getInstance().showQuestionDialog("text.question.print", "Drucken");
+			return true;
+		}
+		else
+		{
+			GraphicFactory.getInstance().showErrorDialog("text.error.date");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isCurrentUserManager()
 	{
-		return dataUC.getCurrentUser().getType().getName().equals("manager");
+		try
+		{
+			System.out.println(useCaseController.getCurrentUser());
+			return useCaseController.getCurrentUser().getType().getName().equals("manager");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public void setDialog(IDialog dialog)
+	{
+		this.dialog = dialog;
+	}
+
+	@Override
+	public void enableOrderList()
+	{
+		dialog.updateModel();
+		dialog.enable(true);
+	}
+
+	@Override
+	public void closeDialog()
+	{
+		logout();
 	}
 }
