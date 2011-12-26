@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import dto.ProductDTO;
 import dto.ProductTypeDTO;
-import model.IDataManagement;
-import model.IGvsController;
-import model.IOrderUC;
+import model.gvsDataManagement.IDataManagement;
+import model.gvsUC.IGvsController;
+import model.gvsUC.IOrderUC;
 
 public class AddProductController implements IAddProductController
 {

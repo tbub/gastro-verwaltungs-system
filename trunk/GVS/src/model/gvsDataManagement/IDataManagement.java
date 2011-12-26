@@ -1,4 +1,4 @@
-package model;
+package model.gvsDataManagement;
 
 import java.io.IOException;
 import java.util.Collection;

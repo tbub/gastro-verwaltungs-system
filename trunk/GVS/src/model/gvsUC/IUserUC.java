@@ -1,4 +1,4 @@
-package model;
+package model.gvsUC;
 
 import java.io.IOException;
 

@@ -15,9 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 import dto.TableDTO;
 import dto.UserDTO;
-import model.GvsUsecaseController;
-import model.IDataManagement;
-import model.IGvsController;
+import model.gvsDataManagement.IDataManagement;
+import model.gvsUC.GvsUsecaseController;
+import model.gvsUC.IGvsController;
 
 public class OrderListController implements IOrderListController, ICalculationController
 {

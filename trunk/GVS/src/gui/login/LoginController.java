@@ -6,7 +6,7 @@ import gui.orderList.OrderListDialog;
 
 import java.io.IOException;
 
-import model.IUserUC;
+import model.gvsUC.IUserUC;
 
 public class LoginController implements ILoginController
 {

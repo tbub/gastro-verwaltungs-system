@@ -1,4 +1,4 @@
-package model;
+package model.gvsUC;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import model.gvsBase.Product;
 import model.gvsBase.Table;
 import model.gvsBase.TableList;
 import model.gvsBase.User;
+import model.gvsDataManagement.DataManagement;
+import model.gvsDataManagement.IDataManagement;
 
 import database.IOrderPersistenz;
 import database.IRessourceManager;
