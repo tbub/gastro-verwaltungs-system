@@ -17,15 +17,25 @@ import model.gvsBase.UserType;
 public class RessourceManager implements IRessourceManager
 {
 	private String userFilename, productFilename, tableFilename;
-	private Properties config;
+	private Properties config = new Properties();
+	private static RessourceManager manager;
 	
-	public RessourceManager(String userFilename, String productFilename, String tableFilename) throws IOException
+	public static IRessourceManager getInstance() throws IOException
 	{
-		this.userFilename = userFilename;
-		this.productFilename = productFilename;
-		this.tableFilename = tableFilename;
+		if(manager == null)
+		{
+			manager = new RessourceManager();
+		}
+		return manager;
+	}
+	
+	private RessourceManager() throws IOException
+	{
 		BufferedInputStream stream = new BufferedInputStream(new FileInputStream("properties/config.properties"));
 		config.load(stream);
+		this.userFilename = config.getProperty("user.filename");
+		this.productFilename = config.getProperty("product.filename");
+		this.tableFilename = config.getProperty("table.filename");
 		stream.close();
 	}
 	
@@ -104,6 +114,12 @@ public class RessourceManager implements IRessourceManager
 	public void saveLastOrderId(long id) throws IOException
 	{
 		config.setProperty("last.order.id", id+"");
+	}
+
+	@Override
+	public String getProperty(String key)
+	{
+		return config.getProperty(key);
 	}
 
 }

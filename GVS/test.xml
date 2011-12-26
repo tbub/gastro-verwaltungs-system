@@ -1,36 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bestellungen>
   <bestellung>
-    <id>12345</id>
+    <id>1</id>
     <offen>false</offen>
-    <datum>19.12.2011 20:26</datum>
+    <datum>26.12.2011 01:38</datum>
     <produkte>
       <produkt>
         <art>Gericht</art>
-        <preis>3.5</preis>
-        <name>Zucker</name>
+        <preis>9.5</preis>
+        <name>Fisch</name>
       </produkt>
       <produkt>
-        <art>Getränk</art>
-        <preis>1.4</preis>
-        <name>Sprite</name>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
       </produkt>
     </produkte>
   </bestellung>
   <bestellung>
-    <id>343</id>
+    <id>2</id>
     <offen>false</offen>
-    <datum>19.12.2011 20:26</datum>
+    <datum>26.12.2011 01:43</datum>
     <produkte>
       <produkt>
         <art>Gericht</art>
-        <preis>3.5</preis>
-        <name>Torte</name>
+        <preis>9.5</preis>
+        <name>Fisch</name>
       </produkt>
       <produkt>
-        <art>Getränk</art>
-        <preis>1.4</preis>
-        <name>Wasser</name>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>8.5</preis>
+        <name>Schnitzel</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>8.5</preis>
+        <name>Schnitzel</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>8.5</preis>
+        <name>Schnitzel</name>
+      </produkt>
+    </produkte>
+  </bestellung>
+  <bestellung>
+    <id>3</id>
+    <offen>false</offen>
+    <datum>25.12.2011 22:03</datum>
+    <produkte>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+    </produkte>
+  </bestellung>
+  <bestellung>
+    <id>4</id>
+    <offen>false</offen>
+    <datum>26.12.2011 01:51</datum>
+    <produkte>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
       </produkt>
     </produkte>
   </bestellung>

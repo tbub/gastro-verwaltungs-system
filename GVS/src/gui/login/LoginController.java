@@ -1,5 +1,11 @@
 package gui.login;
 
+import gui.orderList.IOrderListController;
+import gui.orderList.OrderListController;
+import gui.orderList.OrderListDialog;
+
+import java.io.IOException;
+
 import model.IUserUC;
 
 public class LoginController implements ILoginController
@@ -15,7 +21,15 @@ public class LoginController implements ILoginController
 	@Override
 	public boolean login(String username, String password)
 	{
-		return userUC.login(username, password);
+		try
+		{
+			return userUC.login(username, password);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
@@ -27,8 +41,10 @@ public class LoginController implements ILoginController
 	@Override
 	public void openOrderListDialog()
 	{
-		// TODO Auto-generated method stub
-		
+		IOrderListController controller = new OrderListController(dialog);
+		OrderListDialog dialog = new OrderListDialog(controller);
+		controller.setDialog(dialog);
+		dialog.updateModel();
 	}
 
 	

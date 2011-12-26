@@ -11,5 +11,6 @@ package model;
  */
 public interface ICalculationUC
 {
-	public void calculate(String startDate, String endDate);
+	public boolean validateDate(String date);
+	public boolean calculate(String startDate, String endDate);
 }

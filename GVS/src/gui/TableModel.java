@@ -14,9 +14,20 @@ public class TableModel extends AbstractTableModel
 		COLUMN_NAMES = columnNames;
 		COLUMN_TYPES = new Class<?>[getColumnCount()];
 		
-		for(int i = 0; i < getColumnCount(); i++)
+		for(int row = 0; row < getRowCount(); row++)
 		{
-			COLUMN_TYPES[i] = data[0][i].getClass();
+			for(int col = 0; col < getColumnCount(); col++)
+			{
+				if(data[row][col] == null)
+				{
+					data[row][col] = "";
+				}
+				
+				if(row == 0)
+				{
+					COLUMN_TYPES[row] = data[row][col].getClass();
+				}
+			}
 		}
 	}
 	
@@ -35,7 +46,7 @@ public class TableModel extends AbstractTableModel
 	@Override
 	public int getColumnCount()
 	{
-		return data[0].length;
+		return data.length==0?0:data[0].length;
 	}
 
 	@Override

@@ -7,8 +7,8 @@ package model.gvsBase;
  *
  */
 
-public class Product {
-
+public class Product implements Comparable<Product>
+{
 	private String name;
 	private float price;
 	private ProductType type;
@@ -17,6 +17,13 @@ public class Product {
 		this.price = price;
 		this.name = Name;
 		this.type = type;
+	}
+	
+	public Product(Product product)
+	{
+		this.price = product.getPrice();
+		this.name = product.getName();
+		this.type = product.getType();
 	}
 	
 	public String getName() {
@@ -66,20 +73,15 @@ public class Product {
 	
 	
 	/**
-	 * clone
-	 * 
-	 * @return p
-	 */
-	public Product clone() {
-		return null;
-		
-	}
-	
-	
-	/**
 	 * toString
 	 */
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public int compareTo(Product o)
+	{
+		return this.name.compareTo(o.getName());
 	}
 }

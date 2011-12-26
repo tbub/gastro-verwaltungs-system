@@ -13,9 +13,9 @@ import org.w3c.dom.Element;
  *
  */
 
-public class Order 
+public class Order implements Comparable<Order>
 {	
-	private Collection<Product> products;
+	private Collection<Product> products = new ArrayList<Product>();;
 	private boolean isClosed;
 	private long orderID;
 	// added by Basti
@@ -26,11 +26,11 @@ public class Order
 	 * Konstruktor
 	 */
 	public Order(long id)
-	{
-		products =  new ArrayList<Product>();
+	{ 
 		isClosed = false;
 		date = new Date();
 		this.orderID = id;
+		System.out.println("create order" + this.toString());
 	}
 	
 	// added by basti, den brauch ich um aus meinen datensätzen die orderlist zu erstellen
@@ -41,6 +41,7 @@ public class Order
 		this.products = products;
 		this.isClosed = isClosed;
 		this.orderID = orderID;
+		System.out.println("create order" + this.toString());
 	}
 	
 	public void setProducts(ArrayList<Product> p) {
@@ -168,6 +169,19 @@ public class Order
 	public Collection<Product> getProducts()
 	{
 		return products;
+	}
+
+	@Override
+	public int compareTo(Order o)
+	{
+		if(o.getId() == this.getId())
+		{
+			return 0;
+		}
+		else
+		{
+			return this.getDate().compareTo(o.getDate());
+		}
 	}
 	
 }

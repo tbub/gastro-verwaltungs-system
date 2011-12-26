@@ -14,34 +14,31 @@ public class Table extends JTable implements MouseListener, MouseMotionListener
 {
 	private TableButton rolloverButton = null;
 	
-	public Table(){}
+	public Table()
+	{
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
 	
 	public Table(TableModel model)
 	{
-		super(model);
-		addMouseListener(this);
-		addMouseMotionListener(this);
+		this();
+		setModel(model);
+	}
+	
+	@Override
+	public void setModel(TableModel dataModel)
+	{
+		super.setModel(dataModel);
 		TableCellRenderer renderer = new JTableButtonRenderer();
-		for(int i = 0; i < model.getColumnCount(); i++)
+		for(int i = 0; i < dataModel.getColumnCount(); i++)
 		{
-			getColumn(model.getColumnName(i)).setCellRenderer(renderer);
+			getColumn(dataModel.getColumnName(i)).setCellRenderer(renderer);
 		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		int column = getColumnModel().getColumnIndexAtX(e.getX());
-		int row    = e.getY()/getRowHeight(); 
-
-		if (row < getRowCount() && row >= 0 && column < getColumnCount() && column >= 0)
-		{
-		    Object value = getValueAt(row, column);
-		    if (value instanceof JButton) {
-		    	((JButton)value).doClick();
-		    }
-		}
-	}
+	public void mouseClicked(MouseEvent e){}
 
 	@Override
 	public void mouseEntered(MouseEvent e){}
@@ -50,7 +47,23 @@ public class Table extends JTable implements MouseListener, MouseMotionListener
 	public void mouseExited(MouseEvent e){}
 
 	@Override
-	public void mousePressed(MouseEvent e){}
+	public void mousePressed(MouseEvent e)
+	{
+		//System.out.println(e);
+		int column = getColumnModel().getColumnIndexAtX(e.getX());
+		int row    = e.getY()/getRowHeight(); 
+
+		if (row < getRowCount() && row >= 0 
+				&& column < getColumnCount() && column >= 0)
+		{
+		    Object value = getValueAt(row, column);
+		    if (value instanceof JButton)
+		    {
+		    	((JButton)value).doClick();
+		    //	System.out.println("do Click" + value);
+		    }
+		}
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e){}

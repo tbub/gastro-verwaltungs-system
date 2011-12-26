@@ -8,24 +8,25 @@ package model.gvsBase;
  *
  */
 
-public class User {
+public class User implements Comparable<User>
+{
 
-	private String Name;
-	private String Password;
+	private String name;
+	private String password;
 	private UserType type;
 	
-	public User(String Name, String Password, UserType type) {
-		this.Name = Name;
-		this.Password = Password;
+	public User(String name, String Password, UserType type) {
+		this.name = name;
+		this.password = Password;
 		this.type = type;
 	}
 	
 	public String getName() {
-		return Name;
+		return name;
 	}
 	
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	
 	public UserType getType()
@@ -35,6 +36,22 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "Name des Kellners: " + Name;
+		return "Name des Kellners: " + name;
+	}
+
+	@Override
+	public int compareTo(User o)
+	{
+		return this.getName().compareTo(o.getName());
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj != null && obj.getClass() == name.getClass())
+		{
+			return ((User)obj).getName().equals(name);
+		}
+		return false;
 	}
 }

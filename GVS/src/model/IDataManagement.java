@@ -2,7 +2,6 @@ package model;
 
 import java.io.IOException;
 import java.util.Collection;
-
 import dto.OrderDTO;
 import dto.ProductDTO;
 import dto.ProductTypeDTO;
@@ -26,5 +25,5 @@ public interface IDataManagement
 	public TableDTO getTable(int tableID) throws IOException;
 	public Collection<TableDTO> getTables() throws IOException;
 	public Collection<UserDTO> getUsers() throws IOException;
-	public UserDTO getCurrentUser() throws IOException;
+	public long getLastOrderId() throws IOException;
 }

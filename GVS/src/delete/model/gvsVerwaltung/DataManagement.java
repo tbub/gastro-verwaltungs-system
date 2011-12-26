@@ -1,4 +1,4 @@
-package model.gvsVerwaltung;
+package delete.model.gvsVerwaltung;
 import java.util.ArrayList;
 import model.gvsBase.*;
 

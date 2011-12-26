@@ -1,16 +1,24 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import database.IOrderPersistenz;
 import database.IRessourceManager;
+import database.OrderPersistenz;
+import database.RessourceManager;
 import dto.OrderDTO;
 import dto.ProductDTO;
 import dto.ProductTypeDTO;
 import dto.TableDTO;
 import dto.UserDTO;
 import model.gvsBase.Product;
+import model.gvsBase.ProductType;
+import model.gvsBase.Table;
+import model.gvsBase.TableList;
+import model.gvsBase.User;
 
 /**
  * 
@@ -19,64 +27,92 @@ import model.gvsBase.Product;
  */
 public class DataManagement implements IDataManagement
 {
-	private IRessourceManager ressourceManager;
+	private final IRessourceManager ressourceManager;
+	private final IOrderPersistenz orderPersistence;
+	private Collection<ProductDTO> products = new ArrayList<ProductDTO>();
+	private Collection<ProductTypeDTO> productTypes = new ArrayList<ProductTypeDTO>();
+	private Collection<OrderDTO> orders = new ArrayList<OrderDTO>();
+	private final TableList tableList;
 	
-	
-	public DataManagement(IRessourceManager ressourceManager)
+	public DataManagement(TableList tableList) throws IOException
 	{
-		this.ressourceManager = ressourceManager;
+		this.ressourceManager = RessourceManager.getInstance();
+		this.orderPersistence = new OrderPersistenz(ressourceManager.getProperty("orders.filename"));
+		this.tableList = tableList;
 	}
 	
 	@Override
 	public Collection<ProductDTO> getProducts() throws IOException
 	{
-		Collection<Product> col = ressourceManager.getProducts();
-		Collection<ProductDTO> result = null;
-		for(Product p : col)
+		if(products.isEmpty())
 		{
-			result.add(new ProductDTO(p));
+			Collection<Product> col = ressourceManager.getProducts();
+			for(Product p : col)
+			{
+				products.add(new ProductDTO(p));
+			}
 		}
-		return result;
+		return products;	
 	}
 
 	@Override
 	public Collection<ProductTypeDTO> getProductTypes() throws IOException
 	{
-		return dataManager.getProductTypes();
+		if(productTypes.isEmpty())
+		{
+			productTypes.add(new ProductTypeDTO(ProductType.drink));
+			productTypes.add(new ProductTypeDTO(ProductType.food));
+		}
+		return productTypes;
 	}
 
 	@Override
-	public OrderDTO getOrder(long orderID) throws IOException
+	public OrderDTO getOrder(long orderId) throws IOException
 	{
-		return dataManager.getOrder(orderID);
+		Table table = tableList.getTableByOrderId(orderId);
+		if(table != null)
+		{
+			return new OrderDTO(table.getOrder(orderId));
+		}
+		return null;
 	}
 
 	@Override
 	public TableDTO getTable(int tableID) throws IOException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new TableDTO(tableList.getTable(tableID));
 	}
 
 	@Override
 	public Collection<TableDTO> getTables() throws IOException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Table> col = ressourceManager.getTables();
+		Collection<TableDTO> result = new ArrayList<TableDTO>();
+		
+		for(Table table : col)
+		{
+			result.add(new TableDTO(table));
+		}
+		return result;
 	}
 
 	@Override
 	public Collection<UserDTO> getUsers() throws IOException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Collection<User> col = ressourceManager.getUsers();
+		Collection<UserDTO> result = new ArrayList<UserDTO>();
+		
+		for(User user : col)
+		{
+			result.add(new UserDTO(user));
+		}
+		return result;
 	}
 
 	@Override
-	public UserDTO getCurrentUser() throws IOException
+	public long getLastOrderId() throws IOException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return ressourceManager.getLastOrderId();
 	}
 
 }

@@ -15,13 +15,12 @@ import model.gvsBase.Table;
 public class TableDTO
 {
 	private String username;
-	private Collection<OrderDTO> orderCollection;
+	private Collection<OrderDTO> orderCollection = new ArrayList<OrderDTO>();
 	private int id;
 	
 	public TableDTO(Table table)
 	{
 		username = table.getUser().getName();
-		orderCollection = new ArrayList<OrderDTO>();
 		id = table.getId();
 		for(Order order : table.getOrders())
 		{

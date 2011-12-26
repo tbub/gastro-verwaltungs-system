@@ -1,58 +1,99 @@
 package gui.order;
 
+import gui.IDialog;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import dto.ProductDTO;
 import dto.ProductTypeDTO;
 import model.IDataManagement;
+import model.IGvsController;
 import model.IOrderUC;
-import model.gvsBase.ProductType;
 
 public class AddProductController implements IAddProductController
 {
-	private IOrderUC orderUC;
+	private IOrderUC useCaseController;
 	private IDataManagement dataUC;
-	private int orderID;
+	private long orderID;
+	private ProductTypeDTO selectedProductType;
+	private IDialog dialog;
+	private IOrderController orderController;
 	
-	public AddProductController(IOrderUC orderUC, IDataManagement dataUC, int orderID)
+	public AddProductController(IGvsController useCaseController, IOrderController orderController, long orderID)
 	{
-		this.orderUC = orderUC;
+		this.useCaseController = useCaseController;
 		this.orderID = orderID;
+		this.dataUC = useCaseController.getDataManagement();
+		this.orderController = orderController;
 	}
 
 	@Override
 	public void addProduct(String name)
 	{
-		orderUC.addProduct(orderID, name);
+		useCaseController.addProduct(orderController.getTableId(), orderID, name);
 	}
 
 	@Override
-	public Collection<ProductDTO> getProducts(ProductTypeDTO type)
+	public Collection<ProductDTO> getProducts()
 	{
-		Collection<ProductDTO> list = dataUC.getProducts();
+		Collection<ProductDTO> list;
 		Collection<ProductDTO> result = new ArrayList<ProductDTO>();
-		
-		for(ProductDTO product : list)
+		try
 		{
-			if(product.getType().getName().equals(type.getName()))
+			list = dataUC.getProducts();
+			for(ProductDTO product : list)
 			{
-				result.add(product);
+				if(selectedProductType == null ||
+						product.getType().getName().equals(selectedProductType.getName()))
+				{
+					result.add(product);
+				}
 			}
 		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}	
 		return result;
 	}
 	
 	@Override
 	public Collection<ProductTypeDTO> getProductTypes()
 	{
-		return dataUC.getProductTypes();
+		try
+		{
+			return dataUC.getProductTypes();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
-	public Collection<ProductDTO> getProducts()
+	public ProductTypeDTO getSelectedProductType()
 	{
-		return dataUC.getProducts();
+		return selectedProductType;
+	}
+
+	@Override
+	public void setSelectedProductType(ProductTypeDTO productType)
+	{
+		selectedProductType = productType;
+		dialog.updateModel();
+	}
+
+	@Override
+	public void setDialog(IDialog dialog)
+	{
+		this.dialog = dialog;
+	}
+
+	@Override
+	public void closeDialog()
+	{
+		orderController.enableDialog();
 	}
 }

@@ -1,4 +1,4 @@
-package model.gvsUC;
+package delete.model.gvsUC;
 
 /** Verantwortlich fuer die Use Cases
  * - Bestellung Anlegen
