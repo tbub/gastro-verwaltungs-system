@@ -10,9 +10,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import model.GvsUsecaseController;
-import model.IDataManagement;
-import model.IGvsController;
+import model.gvsDataManagement.IDataManagement;
+import model.gvsUC.GvsUsecaseController;
+import model.gvsUC.IGvsController;
 import dto.OrderDTO;
 import dto.ProductDTO;
 import dto.TableDTO;

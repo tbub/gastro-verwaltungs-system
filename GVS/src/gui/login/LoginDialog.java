@@ -11,7 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import model.GvsUsecaseController;
+
+import model.gvsUC.GvsUsecaseController;
 
 public class LoginDialog extends JFrame implements IDialog
 {
