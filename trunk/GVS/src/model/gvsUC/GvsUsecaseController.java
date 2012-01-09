@@ -133,7 +133,7 @@ public class GvsUsecaseController implements IGvsController
 	{
 		Table sourceTable = tableList.getTableByOrderId(orderId);
 		Table targetTable = tableList.getTable(tableId);
-		targetTable.addOrder(sourceTable.removeOrder(orderId));
+		targetTable.addOrder(sourceTable.removeOrder(orderId));		
 	}
 
 	@Override

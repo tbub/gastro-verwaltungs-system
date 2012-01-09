@@ -33,7 +33,7 @@ public class LoginDialog extends JFrame implements IDialog
 	{
 		setTitle(graphicFactory.getProperty("title.login.dialog"));
 		getContentPane().setLayout(null);
-		
+
 		JLabel lblBenutzername = graphicFactory.createLabel("label.user.name");
 		lblBenutzername.setBounds(16, 25, 100, 16);
 		getContentPane().add(lblBenutzername);

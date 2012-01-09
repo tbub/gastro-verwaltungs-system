@@ -64,7 +64,7 @@ public class AddProductDialog extends JDialog implements IDialog
 		lblPreis.setBounds(25, 104, 61, 16);
 		getContentPane().add(lblPreis);
 		
-		lPrice = new JLabel("0,00" + graphicFactory.getProperty("currency.symbol"));
+		lPrice = new JLabel("0.00" + graphicFactory.getProperty("currency.symbol"));
 		lPrice.setBounds(98, 104, 61, 16);
 		getContentPane().add(lPrice);
 		
@@ -83,21 +83,22 @@ public class AddProductDialog extends JDialog implements IDialog
 			}
 		});
 		
-		/*cbProductNames.addItemListener(new ItemListener()
+		cbProductNames.addItemListener(new ItemListener()
 		{	
 			@Override
 			public void itemStateChanged(ItemEvent event)
 			{
-				if(((ProductDTO)event.getItem()).getType().toString().equals("drink"))
+				lPrice.setText(controller.getPrice(event.getItem().toString()).replace(".", ",") + " " +graphicFactory.getProperty("currency.symbol"));
+				/*if(((ProductDTO)event.getItem()).getType().toString().equals("drink"))
 				{
-					controller.setSelectedProductType(new ProductTypeDTO(ProductType.drink));
+					lPrice.setText(controller.getPrice(((ProductDTO)event.getItem()).getName()) + graphicFactory.getProperty("currency.symbol"));
 				}
 				else
 				{
 					controller.setSelectedProductType(new ProductTypeDTO(ProductType.food));
-				}
+				}*/
 			}
-		});*/
+		});
 		
 		cbProductTypes.addItemListener(new ItemListener()
 		{	

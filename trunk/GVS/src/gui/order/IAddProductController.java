@@ -14,4 +14,5 @@ public interface IAddProductController
 	public void setSelectedProductType(ProductTypeDTO productType);
 	public void setDialog(IDialog dialog);
 	public void closeDialog();
+	public String getPrice(String productName);
 }
