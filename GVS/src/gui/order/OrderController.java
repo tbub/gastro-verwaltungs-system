@@ -100,7 +100,7 @@ public class OrderController implements IOrderController
 	@Override
 	public void setTable(int tableId)
 	{
-		useCaseController.changeOrder(getTableId(), tableId);
+		useCaseController.changeOrder(orderID, tableId);
 		dialog.updateModel();
 	}
 

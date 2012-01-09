@@ -24,14 +24,16 @@ import com.jgoodies.forms.factories.FormFactory;
 import dto.OrderDTO;
 import dto.TableDTO;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
-public class OrderListDialog extends JFrame implements IDialog
+public class OrderListDialog extends JDialog implements IDialog
 {
 	private IOrderListController controller;
 	private final JTable table;

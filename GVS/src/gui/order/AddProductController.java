@@ -29,6 +29,26 @@ public class AddProductController implements IAddProductController
 	}
 
 	@Override
+	public String getPrice(String productName)
+	{
+		try
+		{
+			for(ProductDTO product : dataUC.getProducts())
+			{
+				if(product.getName().equals(productName))
+				{
+					return product.getPrice()+"";
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@Override
 	public void addProduct(String name)
 	{
 		useCaseController.addProduct(orderController.getTableId(), orderID, name);

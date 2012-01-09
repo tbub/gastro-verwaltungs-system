@@ -88,5 +88,49 @@
       </produkt>
     </produkte>
   </bestellung>
+  <bestellung>
+    <id>6</id>
+    <offen>false</offen>
+    <datum>08.01.2012 23:38</datum>
+    <produkte>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Getränk</art>
+        <preis>5.5</preis>
+        <name>Cola</name>
+      </produkt>
+      <produkt>
+        <art>Getränk</art>
+        <preis>5.5</preis>
+        <name>Cola</name>
+      </produkt>
+    </produkte>
+  </bestellung>
+  <bestellung>
+    <id>5</id>
+    <offen>false</offen>
+    <datum>08.01.2012 23:38</datum>
+    <produkte>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Gericht</art>
+        <preis>9.5</preis>
+        <name>Fisch</name>
+      </produkt>
+      <produkt>
+        <art>Getränk</art>
+        <preis>5.5</preis>
+        <name>Cola</name>
+      </produkt>
+    </produkte>
+  </bestellung>
 </bestellungen>
 
